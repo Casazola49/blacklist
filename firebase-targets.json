@@ -1,0 +1,14 @@
+{
+  "hosting": {
+    "production": {
+      "target": "production",
+      "public": "dist",
+      "site": "the-blacklist-879f1"
+    },
+    "staging": {
+      "target": "staging", 
+      "public": "dist",
+      "site": "the-blacklist-879f1"
+    }
+  }
+}

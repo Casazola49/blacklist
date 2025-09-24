@@ -1,0 +1,191 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/png" href="/icon-192x192.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="description" content="The Blacklist - Marketplace exclusivo que conecta estudiantes con académicos de élite" />
+    <meta name="theme-color" content="#800020" />
+    <meta name="color-scheme" content="dark" />
+    
+    <!-- SEO Meta Tags -->
+    <meta name="keywords" content="marketplace académico, estudiantes, especialistas, proyectos universitarios, élite académica" />
+    <meta name="author" content="The Blacklist Team" />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://theblacklist.app" />
+    
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="The Blacklist - Marketplace Académico de Élite" />
+    <meta property="og:description" content="Marketplace exclusivo que conecta estudiantes con académicos de élite" />
+    <meta property="og:image" content="/icon-512x512.png" />
+    <meta property="og:url" content="https://theblacklist.app" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="The Blacklist" />
+    
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="The Blacklist - Marketplace Académico de Élite" />
+    <meta name="twitter:description" content="Marketplace exclusivo que conecta estudiantes con académicos de élite" />
+    <meta name="twitter:image" content="/icon-512x512.png" />
+    
+    <!-- PWA Meta Tags -->
+    <link rel="apple-touch-icon" href="/icon-192x192.png" />
+    <link rel="mask-icon" href="/icon-192x192.png" color="#800020" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="The Blacklist" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="application-name" content="The Blacklist" />
+    
+    <!-- Performance Optimizations -->
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
+    <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
+    <link rel="dns-prefetch" href="https://firebaseapp.com" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    
+    <!-- Critical CSS Preload -->
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+    
+    <!-- Fallback for browsers that don't support preload -->
+    <noscript>
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap" />
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&display=swap" />
+    </noscript>
+    
+    <!-- Critical Images Preload -->
+    <link rel="preload" href="/icon-192x192.png" as="image" />
+    <link rel="preload" href="/icon-512x512.png" as="image" />
+    
+    <!-- Security Headers -->
+    <meta http-equiv="X-Content-Type-Options" content="nosniff" />
+    <meta http-equiv="X-Frame-Options" content="DENY" />
+    <meta http-equiv="X-XSS-Protection" content="1; mode=block" />
+    <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin" />
+    
+    <!-- Content Security Policy -->
+    <meta http-equiv="Content-Security-Policy" content="
+      default-src 'self';
+      script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.gstatic.com https://apis.google.com;
+      style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
+      font-src 'self' https://fonts.gstatic.com;
+      img-src 'self' data: https: blob:;
+      connect-src 'self' https://firebaseapp.com https://googleapis.com wss:;
+      frame-src 'none';
+      object-src 'none';
+      base-uri 'self';
+      form-action 'self';
+    " />
+    
+    <title>The Blacklist - Marketplace Académico de Élite</title>
+    
+    <!-- Critical CSS Inline -->
+    <style>
+      /* Critical CSS for initial render */
+      html, body {
+        margin: 0;
+        padding: 0;
+        background-color: #0a0a0a;
+        color: #eaeaea;
+        font-family: 'Rajdhani', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        overflow-x: hidden;
+      }
+      
+      #app {
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+      }
+      
+      /* Loading spinner for initial load */
+      .initial-loader {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: #0a0a0a;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 9999;
+      }
+      
+      .loader-spinner {
+        width: 50px;
+        height: 50px;
+        border: 3px solid #333;
+        border-top: 3px solid #00ffff;
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+      }
+      
+      @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+      }
+      
+      /* Hide loader when app is ready */
+      .app-ready .initial-loader {
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.3s ease;
+      }
+    </style>
+  </head>
+  <body class="bg-primary text-primary">
+    <!-- Initial loading screen -->
+    <div class="initial-loader">
+      <div class="loader-spinner"></div>
+    </div>
+    
+    <div id="app"></div>
+    
+    <!-- Module preload for critical chunks -->
+    <link rel="modulepreload" href="/src/main.ts" />
+    
+    <script type="module" src="/src/main.ts"></script>
+    
+    <!-- Remove loading screen when app is ready -->
+    <script>
+      window.addEventListener('load', () => {
+        setTimeout(() => {
+          document.body.classList.add('app-ready');
+          setTimeout(() => {
+            const loader = document.querySelector('.initial-loader');
+            if (loader) loader.remove();
+          }, 300);
+        }, 100);
+      });
+      
+      // Handle JavaScript disabled
+      document.documentElement.classList.add('js-enabled');
+    </script>
+    
+    <!-- Fallback for no JavaScript -->
+    <noscript>
+      <div style="
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: #0a0a0a;
+        color: #eaeaea;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        font-family: Arial, sans-serif;
+        z-index: 10000;
+      ">
+        <div>
+          <h1>JavaScript Requerido</h1>
+          <p>The Blacklist requiere JavaScript para funcionar correctamente.</p>
+          <p>Por favor, habilita JavaScript en tu navegador y recarga la página.</p>
+        </div>
+      </div>
+    </noscript>
+  </body>
+</html>

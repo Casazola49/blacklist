@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Animation System Test</title>
+    <style>
+        body {
+            background: #0a0a0a;
+            color: #eaeaea;
+            font-family: 'Orbitron', monospace;
+            padding: 20px;
+        }
+        
+        .test-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .test-section {
+            margin: 40px 0;
+            padding: 20px;
+            border: 1px solid #333;
+            border-radius: 8px;
+        }
+        
+        .test-button {
+            background: transparent;
+            border: 2px solid #00ffff;
+            color: #00ffff;
+            padding: 10px 20px;
+            margin: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .test-button:hover {
+            background: #00ffff;
+            color: #0a0a0a;
+            box-shadow: 0 0 20px #00ffff;
+        }
+        
+        .glitch-demo {
+            font-size: 24px;
+            font-weight: bold;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .glitch-demo.active {
+            animation: glitch 0.3s ease-out;
+        }
+        
+        @keyframes glitch {
+            0%, 100% { transform: translate(0) skew(0deg); }
+            20% { transform: translate(-2px, 2px) skew(1deg); }
+            40% { transform: translate(-2px, -2px) skew(-1deg); }
+            60% { transform: translate(2px, 2px) skew(1deg); }
+            80% { transform: translate(2px, -2px) skew(-1deg); }
+        }
+        
+        .entrance-demo {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .entrance-demo.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .sound-test {
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <h1>The Blacklist - Animation System Test</h1>
+        
+        <div class="test-section">
+            <h2>1. Basic Hover Effects</h2>
+            <button class="test-button">Hover Me</button>
+            <button class="test-button">Another Button</button>
+        </div>
+        
+        <div class="test-section">
+            <h2>2. Glitch Effects</h2>
+            <div class="glitch-demo" id="glitchDemo">GLITCH TEXT EFFECT</div>
+            <br><br>
+            <button class="test-button" onclick="triggerGlitch()">Trigger Glitch</button>
+        </div>
+        
+        <div class="test-section">
+            <h2>3. Entrance Animations</h2>
+            <div class="entrance-demo" id="entranceDemo1">This text will fade in</div>
+            <div class="entrance-demo" id="entranceDemo2">This text will slide up</div>
+            <div class="entrance-demo" id="entranceDemo3">This text will scale in</div>
+            <br><br>
+            <button class="test-button" onclick="triggerEntrances()">Trigger Entrances</button>
+        </div>
+        
+        <div class="test-section">
+            <h2>4. Sound Effects (Web Audio API)</h2>
+            <div class="sound-test">
+                <button class="test-button" onclick="playTestSound('hover')">Hover Sound</button>
+                <button class="test-button" onclick="playTestSound('click')">Click Sound</button>
+                <button class="test-button" onclick="playTestSound('success')">Success Sound</button>
+                <button class="test-button" onclick="playTestSound('error')">Error Sound</button>
+            </div>
+        </div>
+        
+        <div class="test-section">
+            <h2>5. Performance Info</h2>
+            <div id="performanceInfo">
+                <p>Hardware Concurrency: <span id="hardwareConcurrency">-</span></p>
+                <p>User Agent: <span id="userAgent">-</span></p>
+                <p>Reduced Motion: <span id="reducedMotion">-</span></p>
+                <p>Web Audio Support: <span id="webAudioSupport">-</span></p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Initialize performance info
+        document.getElementById('hardwareConcurrency').textContent = navigator.hardwareConcurrency || 'Unknown';
+        document.getElementById('userAgent').textContent = navigator.userAgent.includes('Mobile') ? 'Mobile' : 'Desktop';
+        document.getElementById('reducedMotion').textContent = window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'Yes' : 'No';
+        document.getElementById('webAudioSupport').textContent = 'AudioContext' in window ? 'Yes' : 'No';
+        
+        // Glitch effect
+        function triggerGlitch() {
+            const element = document.getElementById('glitchDemo');
+            element.classList.add('active');
+            setTimeout(() => {
+                element.classList.remove('active');
+            }, 300);
+        }
+        
+        // Entrance animations
+        function triggerEntrances() {
+            const demos = ['entranceDemo1', 'entranceDemo2', 'entranceDemo3'];
+            demos.forEach((id, index) => {
+                const element = document.getElementById(id);
+                element.classList.remove('visible');
+                setTimeout(() => {
+                    element.classList.add('visible');
+                }, index * 200);
+            });
+        }
+        
+        // Sound effects using Web Audio API
+        let audioContext;
+        
+        function initAudioContext() {
+            if (!audioContext && 'AudioContext' in window) {
+                audioContext = new AudioContext();
+            }
+        }
+        
+        function createSyntheticSound(frequency, duration, type = 'sine', volume = 0.1) {
+            if (!audioContext) return;
+            
+            const oscillator = audioContext.createOscillator();
+            const gainNode = audioContext.createGain();
+            
+            oscillator.connect(gainNode);
+            gainNode.connect(audioContext.destination);
+            
+            oscillator.frequency.setValueAtTime(frequency, audioContext.currentTime);
+            oscillator.type = type;
+            
+            gainNode.gain.setValueAtTime(0, audioContext.currentTime);
+            gainNode.gain.linearRampToValueAtTime(volume, audioContext.currentTime + 0.01);
+            gainNode.gain.exponentialRampToValueAtTime(0.001, audioContext.currentTime + duration);
+            
+            oscillator.start(audioContext.currentTime);
+            oscillator.stop(audioContext.currentTime + duration);
+        }
+        
+        function playTestSound(type) {
+            initAudioContext();
+            
+            switch(type) {
+                case 'hover':
+                    createSyntheticSound(800, 0.1, 'sine', 0.03);
+                    break;
+                case 'click':
+                    createSyntheticSound(400, 0.15, 'sawtooth', 0.05);
+                    setTimeout(() => createSyntheticSound(600, 0.1, 'sine', 0.03), 50);
+                    break;
+                case 'success':
+                    createSyntheticSound(523, 0.1, 'sine', 0.05);
+                    setTimeout(() => createSyntheticSound(659, 0.1, 'sine', 0.05), 100);
+                    setTimeout(() => createSyntheticSound(784, 0.2, 'sine', 0.05), 200);
+                    break;
+                case 'error':
+                    createSyntheticSound(200, 0.3, 'sawtooth', 0.08);
+                    setTimeout(() => createSyntheticSound(150, 0.2, 'sawtooth', 0.06), 150);
+                    break;
+            }
+        }
+        
+        // Auto-trigger entrance animations on load
+        setTimeout(() => {
+            triggerEntrances();
+        }, 1000);
+    </script>
+</body>
+</html>

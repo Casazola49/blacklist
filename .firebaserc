@@ -1,0 +1,20 @@
+{
+  "projects": {
+    "default": "the-blacklist-879f1",
+    "production": "the-blacklist-879f1",
+    "staging": "the-blacklist-879f1"
+  },
+  "targets": {
+    "the-blacklist-879f1": {
+      "hosting": {
+        "production": [
+          "the-blacklist-879f1"
+        ],
+        "staging": [
+          "the-blacklist-879f1"
+        ]
+      }
+    }
+  },
+  "etags": {}
+}
