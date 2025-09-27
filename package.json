@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "vite",
     "build": "vue-tsc --noEmit --skipLibCheck && vite build",
-    "build:vercel": "vite build --mode production",
+    "build:vercel": "vite build",
     "build:staging": "npm run clean:dist && vue-tsc && vite build --mode staging",
     "build:production": "npm run clean:dist && vue-tsc && vite build --mode production",
     "build:analyze": "npm run clean:dist && vue-tsc && vite build --mode analyze",
@@ -79,13 +79,13 @@
   "license": "MIT",
   "description": "Marketplace exclusivo que conecta estudiantes con académicos de élite",
   "dependencies": {
-    "firebase": "^12.3.0",
+    "firebase": "^10.14.0",
     "pinia": "^3.0.3",
     "vue": "^3.5.21",
     "vue-router": "^4.5.1"
   },
   "devDependencies": {
-    "@firebase/rules-unit-testing": "^3.0.3",
+    "@firebase/rules-unit-testing": "^2.0.7",
     "@tailwindcss/typography": "^0.5.18",
     "@types/node": "^24.5.2",
     "@vitejs/plugin-vue": "^6.0.1",
