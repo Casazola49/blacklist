@@ -33,12 +33,22 @@ export default defineConfig(({ command, mode }) => {
     cssCodeSplit: true,
     sourcemap: !isProduction,
     minify: isProduction ? 'terser' : false,
+    chunkSizeWarningLimit: 600,
     rollupOptions: {
       output: {
         manualChunks: (id) => {
-          // Firebase chunk
+          // Firebase chunks - split by functionality
+          if (id.includes('firebase/auth')) {
+            return 'firebase-auth'
+          }
+          if (id.includes('firebase/firestore')) {
+            return 'firebase-firestore'
+          }
+          if (id.includes('firebase/app') || id.includes('firebase/analytics')) {
+            return 'firebase-core'
+          }
           if (id.includes('firebase')) {
-            return 'firebase'
+            return 'firebase-other'
           }
           // Vue ecosystem chunk
           if (id.includes('vue') || id.includes('pinia') || id.includes('@vue')) {
