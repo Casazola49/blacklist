@@ -1,7 +1,7 @@
 /// <reference types="vitest" />
 import { defineConfig, loadEnv } from 'vite'
 import vue from '@vitejs/plugin-vue'
-import { VitePWA } from 'vite-plugin-pwa'
+// import { VitePWA } from 'vite-plugin-pwa' // Disabled for demo
 import { resolve } from 'path'
 
 // https://vitejs.dev/config/
@@ -16,61 +16,7 @@ export default defineConfig(({ command, mode }) => {
   return {
   plugins: [
     vue(),
-    VitePWA({
-      registerType: 'autoUpdate',
-      workbox: {
-        globPatterns: ['**/*.{js,css,html,ico,png,svg,woff2}'],
-        cleanupOutdatedCaches: true,
-        skipWaiting: true,
-        clientsClaim: true
-      },
-      manifest: {
-        name: 'The Blacklist - Marketplace Académico de Élite',
-        short_name: 'The Blacklist',
-        description: 'Marketplace exclusivo que conecta estudiantes con académicos de élite',
-        theme_color: '#800020',
-        background_color: '#0a0a0a',
-        display: 'standalone',
-        orientation: 'portrait-primary',
-        start_url: '/',
-        scope: '/',
-        lang: 'es',
-        categories: ['education', 'productivity', 'business'],
-        icons: [
-          {
-            src: '/icon-192x192.png',
-            sizes: '192x192',
-            type: 'image/png',
-            purpose: 'any maskable'
-          },
-          {
-            src: '/icon-512x512.png',
-            sizes: '512x512',
-            type: 'image/png',
-            purpose: 'any maskable'
-          }
-        ],
-        shortcuts: [
-          {
-            name: 'Dashboard',
-            short_name: 'Dashboard',
-            description: 'Acceder al dashboard principal',
-            url: '/dashboard',
-            icons: [{ src: '/icon-192x192.png', sizes: '192x192' }]
-          },
-          {
-            name: 'Nuevo Contrato',
-            short_name: 'Contrato',
-            description: 'Crear nuevo contrato',
-            url: '/dashboard/contratos/nuevo',
-            icons: [{ src: '/icon-192x192.png', sizes: '192x192' }]
-          }
-        ]
-      },
-      devOptions: {
-        enabled: true
-      }
-    })
+    // PWA disabled for demo
   ],
   resolve: {
     alias: {

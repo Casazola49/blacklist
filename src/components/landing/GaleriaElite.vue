@@ -18,22 +18,18 @@
     </div>
 
     <div class="container relative z-10 py-20">
-      <!-- Section Header -->
+      <!-- Section Header - V2.0 Updated -->
       <div class="text-center mb-16">
         <GlitchText 
-          text="GALERÍA DE ÉLITE" 
-          class="text-5xl md:text-7xl font-black mb-6"
+          text="AUXILIARES-ESPECIALISTAS DE NUESTRA ORGANIZACION" 
+          class="text-4xl md:text-6xl font-black mb-6"
           variant="primary"
           :active="true"
           :intense="true"
         />
         <div class="max-w-3xl mx-auto">
-          <p class="text-xl text-text-secondary font-mono mb-4">
-            [ ESPECIALISTAS DESTACADOS DEL SINDICATO ]
-          </p>
-          <p class="text-text-muted leading-relaxed">
-            Perfiles de élite verificados por nuestro sistema de inteligencia artificial. 
-            Cada especialista ha demostrado excelencia académica y capacidad de ejecución superior.
+          <p class="text-lg text-text-secondary font-mono mb-4">
+            Cada especialista ha superado nuestro riguroso protocolo de verificación de habilidades y discreción.
           </p>
         </div>
       </div>
@@ -181,7 +177,7 @@
           <HologramCard variant="secondary" class="h-full">
             <div class="text-center p-6">
               <div class="text-4xl font-bold text-accent-cyan mb-2">
-                <AnimatedCounter :target="1247" />+
+                <AnimatedCounter :target="100" />+
               </div>
               <div class="text-text-muted font-mono">Especialistas Activos</div>
             </div>
@@ -235,67 +231,67 @@ interface Specialist {
 const specialists = ref<Specialist[]>([
   {
     id: '1',
-    alias: 'CIPHER_ALPHA',
-    avatar: '/api/placeholder/150/150',
-    specialization: 'Ingeniería de Software',
+    alias: 'Carlitos',
+    avatar: '/imagen 1.png',
+    specialization: 'Especialista en materias de Quimica',
     completedJobs: 342,
     rating: 4.9,
     responseTime: 2,
     successRate: 98,
     skills: ['Python', 'Machine Learning', 'Blockchain', 'Cybersecurity'],
-    testimonial: 'Precisión quirúrgica en cada línea de código. El futuro se construye aquí.',
+    testimonial: 'La calidad del trabajo superó todas mis expectativas. Mi análisis estadístico fue transformado completamente.',
     status: 'online'
   },
   {
     id: '2',
-    alias: 'QUANTUM_BETA',
-    avatar: '/api/placeholder/150/150',
-    specialization: 'Física Cuántica',
+    alias: 'El Diego',
+    avatar: '/imagen 2.png',
+    specialization: 'Especialista en materias de Quimica',
     completedJobs: 189,
     rating: 4.8,
     responseTime: 4,
     successRate: 96,
     skills: ['Quantum Computing', 'Mathematics', 'Research', 'Analysis'],
-    testimonial: 'Donde la realidad se encuentra con la posibilidad infinita.',
+    testimonial: 'Increíble experiencia. Mi tesis estaba estancada por meses hasta que encontré a mi especialista.',
     status: 'busy'
   },
   {
     id: '3',
-    alias: 'NEURAL_GAMMA',
-    avatar: '/api/placeholder/150/150',
-    specialization: 'Neurociencia Computacional',
+    alias: 'Ing. Anita',
+    avatar: '/imagen 3.png',
+    specialization: 'Egresada especialista en materias de Calculo',
     completedJobs: 267,
     rating: 4.9,
     responseTime: 3,
     successRate: 97,
     skills: ['AI/ML', 'Neuroscience', 'Data Science', 'Psychology'],
-    testimonial: 'Decodificando los misterios de la mente con precisión digital.',
+    testimonial: 'Como estudiante internacional, necesitaba ayuda con el formato y estilo académico local.',
     status: 'online'
   },
   {
     id: '4',
-    alias: 'CRYPTO_DELTA',
-    avatar: '/api/placeholder/150/150',
-    specialization: 'Criptografía Avanzada',
+    alias: 'Pitita',
+    avatar: '/imagen 4.png',
+    specialization: 'Especialista en Dinamica',
     completedJobs: 156,
     rating: 4.7,
     responseTime: 6,
     successRate: 94,
     skills: ['Cryptography', 'Security', 'Blockchain', 'Mathematics'],
-    testimonial: 'Guardián de secretos en la era digital. Seguridad absoluta.',
+    testimonial: 'La plataforma es revolucionaria. Encontré exactamente el tipo de especialista que necesitaba.',
     status: 'online'
   },
   {
     id: '5',
-    alias: 'MATRIX_EPSILON',
-    avatar: '/api/placeholder/150/150',
-    specialization: 'Realidad Virtual',
+    alias: 'Ing. Cruskaya',
+    avatar: '/imagen 5.png',
+    specialization: 'Especialista en Laboratorios de Quimica',
     completedJobs: 203,
     rating: 4.8,
     responseTime: 5,
     successRate: 95,
     skills: ['VR/AR', '3D Graphics', 'Unity', 'Game Development'],
-    testimonial: 'Construyendo mundos donde la imaginación se vuelve realidad.',
+    testimonial: 'Después de intentar con otras plataformas, The Blacklist es superior en todos los aspectos.',
     status: 'busy'
   }
 ])

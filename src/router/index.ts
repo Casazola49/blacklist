@@ -11,7 +11,7 @@ const routes: RouteRecordRaw[] = [
   {
     path: '/auth',
     name: 'auth',
-    component: () => import('../views/AuthView.vue'),
+    component: () => import('../views/SimpleAuthView.vue'),
     meta: { requiresGuest: true }
   },
   {
@@ -67,63 +67,10 @@ const router = createRouter({
   routes
 })
 
-// Authentication guards
-router.beforeEach(async (to, _from, next) => {
-  const authStore = useAuthStore()
-  
-  // Wait for auth initialization if needed
-  if (authStore.user === null && authStore.userProfile === null && !authStore.loading) {
-    // Auth state is not yet determined, wait a bit
-    await new Promise(resolve => setTimeout(resolve, 100))
-  }
-
-  const requiresAuth = to.meta.requiresAuth
-  const requiresGuest = to.meta.requiresGuest
-  const requiredRole = to.meta.role
-  const isAuthenticated = authStore.isAuthenticated
-  const userRole = authStore.userRole
-
-  // Handle guest-only routes (auth pages)
-  if (requiresGuest && isAuthenticated) {
-    // Redirect authenticated users to their dashboard
-    const dashboardRoute = getDashboardRoute(userRole)
-    return next(dashboardRoute)
-  }
-
-  // Handle protected routes
-  if (requiresAuth && !isAuthenticated) {
-    return next('/auth')
-  }
-
-  // Handle role-based access
-  if (requiresAuth && requiredRole && userRole !== requiredRole) {
-    // Redirect to appropriate dashboard or show error
-    const dashboardRoute = getDashboardRoute(userRole)
-    return next(dashboardRoute || '/auth')
-  }
-
-  // Handle pending specialist approval
-  if (isAuthenticated && authStore.userProfile?.tipo === 'especialista' && 
-      authStore.userProfile?.estado === 'pendiente' && 
-      to.name !== 'auth') {
-    // Allow access to auth page to show pending status
-    return next('/auth')
-  }
-
+// Simplified navigation for demo - no guards
+router.beforeEach((to, _from, next) => {
+  console.log('Navigating to:', to.path)
   next()
 })
-
-function getDashboardRoute(role?: string): string {
-  switch (role) {
-    case 'cliente':
-      return '/dashboard/cliente'
-    case 'especialista':
-      return '/dashboard/especialista'
-    case 'admin':
-      return '/dashboard/admin'
-    default:
-      return '/'
-  }
-}
 
 export default router

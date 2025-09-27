@@ -3,6 +3,7 @@ import { ref, computed } from 'vue'
 import type { User } from 'firebase/auth'
 import type { Usuario, Especialista } from '../types'
 import { AuthService } from '../services/auth'
+import { useAuthErrorHandler } from '../composables/useAuthErrorHandler'
 
 export const useAuthStore = defineStore('auth', () => {
   // State
@@ -10,6 +11,9 @@ export const useAuthStore = defineStore('auth', () => {
   const userProfile = ref<Usuario | Especialista | null>(null)
   const loading = ref(false)
   const error = ref<string | null>(null)
+  
+  // Error handling
+  const { handleAuthError, retryWithFallback, clearError: clearAuthError } = useAuthErrorHandler()
 
   // Getters
   const isAuthenticated = computed(() => !!user.value)
@@ -24,7 +28,13 @@ export const useAuthStore = defineStore('auth', () => {
       loading.value = true
       error.value = null
       
-      const firebaseUser = await AuthService.signInWithGoogle()
+      const firebaseUser = await retryWithFallback(
+        // Primary: Try popup
+        () => AuthService.signInWithGoogle(),
+        // Fallback: Could implement email/password or other method
+        undefined
+      )
+      
       if (firebaseUser) {
         user.value = firebaseUser
         // Load user profile
@@ -32,6 +42,7 @@ export const useAuthStore = defineStore('auth', () => {
         userProfile.value = profile
       }
     } catch (err) {
+      handleAuthError(err)
       error.value = err instanceof Error ? err.message : 'Error de autenticación'
       throw err
     } finally {
@@ -112,7 +123,20 @@ export const useAuthStore = defineStore('auth', () => {
     }
   }
 
-  const initializeAuth = () => {
+  const initializeAuth = async () => {
+    // First check for redirect result
+    try {
+      const redirectUser = await AuthService.handleRedirectResult()
+      if (redirectUser) {
+        user.value = redirectUser
+        const profile = await AuthService.getUserProfile(redirectUser.uid)
+        userProfile.value = profile
+      }
+    } catch (error) {
+      console.error('Error handling redirect result:', error)
+    }
+
+    // Then set up auth state listener
     return AuthService.onAuthStateChanged(async (firebaseUser) => {
       user.value = firebaseUser
       if (firebaseUser) {
@@ -126,6 +150,7 @@ export const useAuthStore = defineStore('auth', () => {
 
   const clearError = () => {
     error.value = null
+    clearAuthError()
   }
 
   return {

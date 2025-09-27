@@ -23,26 +23,28 @@ Una Progressive Web App (PWA) futurista que conecta estudiantes universitarios (
 ## 📦 Instalación
 
 1. Clona el repositorio:
-\`\`\`bash
-git clone <repository-url>
-cd the-blacklist-web
-\`\`\`
+   \`\`\`bash
+   git clone <repository-url>
+   cd the-blacklist-web
+   \`\`\`
 
 2. Instala las dependencias:
-\`\`\`bash
-npm install
-\`\`\`
+   \`\`\`bash
+   npm install
+   \`\`\`
 
 3. Configura las variables de entorno:
-\`\`\`bash
-cp .env.example .env
+   \`\`\`bash
+   cp .env.example .env
+
 # Edita .env con tus credenciales de Firebase
+
 \`\`\`
 
 4. Inicia el servidor de desarrollo:
-\`\`\`bash
-npm run dev
-\`\`\`
+   \`\`\`bash
+   npm run dev
+   \`\`\`
 
 ## 🔧 Scripts Disponibles
 
@@ -56,17 +58,17 @@ npm run dev
 \`\`\`
 src/
 ├── components/
-│   ├── ui/                 # Componentes base reutilizables
-│   ├── layout/             # Componentes de layout
-│   ├── landing/            # Componentes de landing page
-│   ├── dashboard/          # Componentes de dashboards
-│   └── shared/             # Componentes compartidos
-├── views/                  # Vistas principales
-├── stores/                 # Pinia stores
-├── services/               # Servicios Firebase
-├── types/                  # Interfaces TypeScript
-├── utils/                  # Utilidades
-└── assets/                 # Assets estáticos
+│ ├── ui/ # Componentes base reutilizables
+│ ├── layout/ # Componentes de layout
+│ ├── landing/ # Componentes de landing page
+│ ├── dashboard/ # Componentes de dashboards
+│ └── shared/ # Componentes compartidos
+├── views/ # Vistas principales
+├── stores/ # Pinia stores
+├── services/ # Servicios Firebase
+├── types/ # Interfaces TypeScript
+├── utils/ # Utilidades
+└── assets/ # Assets estáticos
 \`\`\`
 
 ## 🎨 Tema Visual

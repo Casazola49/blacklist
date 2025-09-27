@@ -1,41 +1,49 @@
 <template>
   <div class="landing-view">
+    <!-- Navigation Bar -->
+    <NavigationBar />
+    
     <!-- Hero Section -->
     <HeroSection />
     
     <!-- Protocolo de Operación Section -->
-    <ProtocoloOperacion />
+    <div id="protocolo">
+      <ProtocoloOperacion />
+    </div>
     
-    <!-- Arsenal de IA Section -->
-    <ArsenalIA />
+    <!-- Arsenal Tecnológico Section -->
+    <div id="arsenal">
+      <ArsenalTecnologico />
+    </div>
     
-    <!-- Galería de Élite Section -->
-    <GaleriaElite />
-    
-    <!-- Biblioteca Clasificada Section -->
-    <BibliotecaClasificada />
-    
-    <!-- Tienda de Recursos Section -->
-    <TiendaRecursos />
+    <!-- Operadores de Élite Section -->
+    <div id="operadores">
+      <GaleriaElite />
+    </div>
     
     <!-- Estadísticas del Sistema Section -->
-    <EstadisticasSistema />
+    <div id="estadisticas">
+      <EstadisticasSistema />
+    </div>
     
     <!-- Testimonios Encriptados Section -->
-    <TestimoniosEncriptados />
+    <div id="testimonios">
+      <TestimoniosEncriptados />
+    </div>
     
     <!-- Preguntas del Protocolo Section -->
-    <PreguntasProtocolo />
+    <div id="faq">
+      <PreguntasProtocolo />
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
+import NavigationBar from '../components/ui/NavigationBar.vue'
 import HeroSection from '../components/landing/HeroSection.vue'
 import ProtocoloOperacion from '../components/landing/ProtocoloOperacion.vue'
-import ArsenalIA from '../components/landing/ArsenalIA.vue'
+import ArsenalTecnologico from '../components/landing/ArsenalTecnologico.vue'
 import GaleriaElite from '../components/landing/GaleriaElite.vue'
-import BibliotecaClasificada from '../components/landing/BibliotecaClasificada.vue'
-import TiendaRecursos from '../components/landing/TiendaRecursos.vue'
 import EstadisticasSistema from '../components/landing/EstadisticasSistema.vue'
 import TestimoniosEncriptados from '../components/landing/TestimoniosEncriptados.vue'
 import PreguntasProtocolo from '../components/landing/PreguntasProtocolo.vue'
@@ -43,6 +51,12 @@ import PreguntasProtocolo from '../components/landing/PreguntasProtocolo.vue'
 
 <style scoped>
 .landing-view {
-  /* Styles handled by individual sections */
+  /* Account for fixed navigation */
+  padding-top: 0;
+}
+
+/* Smooth scroll behavior */
+html {
+  scroll-behavior: smooth;
 }
 </style>

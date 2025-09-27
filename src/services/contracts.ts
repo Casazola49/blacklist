@@ -109,14 +109,14 @@ export class ContractsService {
    */
   static async getClientContracts(clienteId: string): Promise<Contrato[]> {
     try {
+      // Temporary: Remove orderBy to avoid index requirement
       const q = query(
         collection(db, this.COLLECTION),
-        where('clienteId', '==', clienteId),
-        orderBy('fechaCreacion', 'desc')
+        where('clienteId', '==', clienteId)
       )
       const querySnapshot = await getDocs(q)
       
-      return querySnapshot.docs.map(doc => {
+      const contracts = querySnapshot.docs.map(doc => {
         const data = doc.data()
         return {
           id: doc.id,
@@ -127,6 +127,9 @@ export class ContractsService {
           fechaCompletado: data.fechaCompletado?.toDate()
         }
       }) as Contrato[]
+      
+      // Sort in memory instead of using Firestore orderBy
+      return contracts.sort((a, b) => b.fechaCreacion.getTime() - a.fechaCreacion.getTime())
     } catch (error) {
       console.error('Error getting client contracts:', error)
       throw error
@@ -138,14 +141,14 @@ export class ContractsService {
    */
   static async getSpecialistContracts(especialistaId: string): Promise<Contrato[]> {
     try {
+      // Temporary: Remove orderBy to avoid index requirement
       const q = query(
         collection(db, this.COLLECTION),
-        where('especialistaId', '==', especialistaId),
-        orderBy('fechaCreacion', 'desc')
+        where('especialistaId', '==', especialistaId)
       )
       const querySnapshot = await getDocs(q)
       
-      return querySnapshot.docs.map(doc => {
+      const contracts = querySnapshot.docs.map(doc => {
         const data = doc.data()
         return {
           id: doc.id,
@@ -156,6 +159,9 @@ export class ContractsService {
           fechaCompletado: data.fechaCompletado?.toDate()
         }
       }) as Contrato[]
+      
+      // Sort in memory instead of using Firestore orderBy
+      return contracts.sort((a, b) => b.fechaCreacion.getTime() - a.fechaCreacion.getTime())
     } catch (error) {
       console.error('Error getting specialist contracts:', error)
       throw error
@@ -322,16 +328,11 @@ export class ContractsService {
    */
   static async approveWork(contractId: string): Promise<void> {
     try {
-      // Import EscrowService dynamically to avoid circular dependencies
-      const { EscrowService } = await import('./escrow')
+      // TEMPORARILY DISABLED - Escrow functionality
+      console.log('Escrow functionality temporarily disabled for demo')
       
-      // Get the escrow transaction for this contract
-      const escrowTransaction = await EscrowService.getEscrowTransactionByContract(contractId)
-      
-      if (escrowTransaction && escrowTransaction.estado === 'fondos_retenidos') {
-        // Process automatic fund release
-        await EscrowService.processAutomaticRelease(escrowTransaction.id)
-      }
+      // Just update contract status without escrow
+      await this.updateContractStatus(contractId, 'completado')
       
       // Update contract status to completed
       await this.updateContract(contractId, {

@@ -169,7 +169,7 @@
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
           <div v-for="node in networkNodes" :key="node.id" class="text-center">
-            <div class="relative mb-4">
+            <div class="relative mb-4 network-node-pulse">
               <RadialProgress 
                 :value="node.status" 
                 size="large"
@@ -184,10 +184,10 @@
             <p class="text-xs text-text-secondary">{{ node.description }}</p>
             <div class="mt-2">
               <span 
-                class="inline-block w-2 h-2 rounded-full mr-2"
+                class="inline-block w-2 h-2 rounded-full mr-2 animate-pulse"
                 :class="node.status > 95 ? 'bg-accent-cyan' : node.status > 80 ? 'bg-yellow-400' : 'bg-accent-magenta'"
               ></span>
-              <span class="text-xs font-mono text-text-muted">{{ node.status }}% OPERATIVO</span>
+              <span class="text-xs font-mono text-text-muted live-status">{{ node.status.toFixed(1) }}% OPERATIVO</span>
             </div>
           </div>
         </div>
@@ -242,14 +242,14 @@ const mainStats = ref<Statistic[]>([
   {
     id: 'projects',
     label: 'Proyectos Completados',
-    value: 12847,
+    value: 482,
     icon: 'fas fa-check-circle',
     trend: 23.5
   },
   {
     id: 'satisfaction',
     label: 'Satisfacción Promedio',
-    value: 98.7,
+    value: 98,
     suffix: '%',
     icon: 'fas fa-star',
     trend: 5.2
@@ -257,7 +257,7 @@ const mainStats = ref<Statistic[]>([
   {
     id: 'response',
     label: 'Tiempo de Respuesta',
-    value: 2.3,
+    value: 4,
     suffix: 'h',
     icon: 'fas fa-clock',
     trend: -15.8
@@ -265,7 +265,7 @@ const mainStats = ref<Statistic[]>([
   {
     id: 'specialists',
     label: 'Especialistas Activos',
-    value: 1247,
+    value: 74,
     icon: 'fas fa-users',
     trend: 12.4
   }
@@ -275,41 +275,41 @@ const realtimeActivities = ref<Activity[]>([
   {
     id: '1',
     type: 'contract',
-    message: 'Nuevo contrato creado: "Análisis Estadístico Avanzado"',
+    message: 'Revisión de trabajo completada: "Análisis Estadístico"',
     timestamp: 'hace 2 min',
-    value: '$450',
+    value: '45 Bs',
     icon: 'fas fa-file-contract'
   },
   {
     id: '2',
     type: 'payment',
-    message: 'Pago liberado para proyecto de Machine Learning',
+    message: 'Trabajo realizado: Proyecto de Machine Learning',
     timestamp: 'hace 5 min',
-    value: '$1,200',
+    value: '180 Bs',
     icon: 'fas fa-dollar-sign'
   },
   {
     id: '3',
     type: 'user',
-    message: 'Nuevo especialista aprobado: Dr. Elena Vásquez',
+    message: 'Revisión de formato: Tesis de Maestría',
     timestamp: 'hace 8 min',
-    value: '★★★★★',
+    value: '35 Bs',
     icon: 'fas fa-user-plus'
   },
   {
     id: '4',
     type: 'system',
-    message: 'Actualización de seguridad implementada',
+    message: 'Trabajo grande completado: Sistema Completo',
     timestamp: 'hace 12 min',
-    value: 'v2.1.4',
+    value: '195 Bs',
     icon: 'fas fa-shield-alt'
   },
   {
     id: '5',
     type: 'contract',
-    message: 'Propuesta aceptada: "Revisión de Tesis Doctoral"',
+    message: 'Revisión de contenido: Proyecto Final',
     timestamp: 'hace 15 min',
-    value: '$800',
+    value: '50 Bs',
     icon: 'fas fa-handshake'
   }
 ])
@@ -337,11 +337,11 @@ const performanceMetrics = ref<PerformanceMetric[]>([
     percentage: 100
   },
   {
-    id: 'efficiency',
-    label: 'Eficiencia del Sistema',
-    value: 94.5,
+    id: 'delivery',
+    label: 'Tasa de Entrega a Tiempo',
+    value: 99.2,
     unit: '%',
-    percentage: 94.5
+    percentage: 99.2
   }
 ])
 
@@ -369,6 +369,15 @@ const networkNodes = ref<NetworkNode[]>([
   }
 ])
 
+// Live monitoring simulation
+const simulateLiveMonitoring = () => {
+  networkNodes.value.forEach(node => {
+    const baseStatus = node.status
+    const fluctuation = (Math.random() - 0.5) * 0.6 // ±0.3% fluctuation
+    node.status = Math.min(100, Math.max(95, baseStatus + fluctuation))
+  })
+}
+
 let activityInterval: number
 
 const getActivityBorderColor = (type: string) => {
@@ -393,12 +402,23 @@ const getActivityIconBg = (type: string) => {
 
 const simulateRealtimeUpdates = () => {
   // Simulate new activities
+  const messages = [
+    'Revisión de trabajo completada',
+    'Trabajo realizado: Proyecto completo',
+    'Revisión de formato completada',
+    'Trabajo grande finalizado',
+    'Revisión de contenido terminada'
+  ]
+  
+  const randomPrice = Math.floor(Math.random() * 170 + 30) // 30-200 Bs
+  const randomMessage = messages[Math.floor(Math.random() * messages.length)]
+  
   const newActivity: Activity = {
     id: Date.now().toString(),
     type: ['contract', 'payment', 'user', 'system'][Math.floor(Math.random() * 4)] as Activity['type'],
-    message: 'Nueva actividad del sistema detectada',
+    message: randomMessage,
     timestamp: 'hace 1 min',
-    value: '$' + Math.floor(Math.random() * 1000 + 100),
+    value: randomPrice + ' Bs',
     icon: 'fas fa-bolt'
   }
   
@@ -412,6 +432,9 @@ onMounted(() => {
   // Start real-time simulation
   activityInterval = setInterval(simulateRealtimeUpdates, 10000)
   
+  // Start live monitoring simulation
+  const monitoringInterval = setInterval(simulateLiveMonitoring, 3000)
+  
   // Add entrance animations
   const cards = document.querySelectorAll('.stat-card')
   cards.forEach((card, index) => {
@@ -419,6 +442,9 @@ onMounted(() => {
       card.classList.add('animate-fade-in-up')
     }, index * 200)
   })
+  
+  // Store monitoring interval for cleanup
+  activityInterval = monitoringInterval
 })
 
 onUnmounted(() => {
@@ -509,5 +535,25 @@ onUnmounted(() => {
     opacity: 1;
     transform: translateY(0);
   }
+}
+
+/* Network Node Live Monitoring */
+.network-node-pulse {
+  animation: network-pulse 4s ease-in-out infinite;
+}
+
+@keyframes network-pulse {
+  0%, 100% {
+    transform: scale(1);
+    filter: brightness(1);
+  }
+  50% {
+    transform: scale(1.02);
+    filter: brightness(1.1);
+  }
+}
+
+.live-status {
+  transition: all 0.3s ease;
 }
 </style>

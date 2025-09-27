@@ -235,7 +235,11 @@ const isFormValid = computed(() => {
 // Methods
 const signInWithGoogle = async () => {
   try {
-    await authStore.signInWithGoogle()
+    const result = await authStore.signInWithGoogle()
+    // If result is null, it means redirect was used and we'll get the result on page reload
+    if (result === null) {
+      console.log('Redirecting to Google for authentication...')
+    }
   } catch (error) {
     console.error('Error signing in:', error)
   }

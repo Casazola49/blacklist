@@ -209,7 +209,7 @@ const closeModal = () => {
 }
 
 .header-glow {
-  @apply absolute inset-0 bg-gradient-to-r from-cyan-500/10 to-magenta-500/10;
+  @apply absolute inset-0 bg-gradient-to-r from-cyan-500/10 to-purple-500/10;
 }
 
 .modal-title {

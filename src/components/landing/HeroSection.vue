@@ -21,18 +21,14 @@
 
     <!-- Hero Content -->
     <div class="hero-content relative z-10 text-center max-w-4xl mx-auto px-4" :style="{ transform: `translateY(${parallaxOffset}px)` }">
-      <!-- Main Title -->
-      <div class="mb-8">
-        <GlitchText 
-          text="THE BLACKLIST" 
-          class="text-6xl md:text-8xl font-orbitron font-black mb-4"
-          :active="true"
-          :intense="true"
-          variant="primary"
-        />
+      <!-- Main Title - ULTRA DOMINANT -->
+      <div class="title-section mb-8">
+        <div class="title-container">
+          <GlitchTitle />
+        </div>
         <div class="subtitle-glow">
-          <p class="text-xl md:text-2xl text-accent-cyan font-mono tracking-wider">
-            SINDICATO DE ÉLITE ACADÉMICA
+          <p class="subtitle-responsive text-accent-cyan font-mono tracking-wider">
+            UN MARKETPLACE ACADÉMICO
           </p>
         </div>
       </div>
@@ -50,15 +46,15 @@
         </div>
       </div>
 
-      <!-- CTA Button with Pulse Effect -->
+      <!-- CTA Button with Enhanced Conversion Focus -->
       <div class="cta-container">
         <NeonButton 
           variant="primary" 
-          class="cta-button text-lg px-12 py-4 pulse-effect"
+          class="cta-button-enhanced cta-responsive pulse-effect-intense"
           @click="$router.push('/auth')"
         >
-          <span class="flex items-center gap-3">
-            <span>ACCEDER AL SINDICATO</span>
+          <span class="flex items-center gap-4">
+            <span class="cta-text">ACCEDER AL PROTOCOLO</span>
             <div class="access-indicator">
               <div class="indicator-dot"></div>
               <div class="indicator-dot"></div>
@@ -68,7 +64,7 @@
         </NeonButton>
         
         <p class="text-text-muted text-sm mt-4 font-mono">
-          [ ACCESO RESTRINGIDO - SOLO ÉLITE ]
+          [ ACCESO LIBRE - AHORRA TIEMPO ]
         </p>
       </div>
     </div>
@@ -86,7 +82,8 @@
 
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted } from 'vue'
-import GlitchText from '../ui/GlitchText.vue'
+import GlitchText from '../ui/SimpleGlitchText.vue'
+import GlitchTitle from '../ui/SimpleGlitchTitle.vue'
 import NeonButton from '../ui/NeonButton.vue'
 
 // Matrix animation data
@@ -99,11 +96,8 @@ const particleCount = ref(30)
 // Parallax data
 const parallaxOffset = ref(0)
 
-// Manifesto text
-const manifestoText = ref(`El sistema educativo tradicional ha fallado. Nosotros somos la alternativa.
-Una red clandestina de académicos de élite que opera en las sombras,
-conectando estudiantes ambiciosos con especialistas de primer nivel.
-Bienvenido al futuro de la educación superior.`)
+// Manifesto text - V2.0 Simplified
+const manifestoText = ref(`El sistema de educacion tradicional ha fallado. Somos la alternativa. Una red de auxiliares especialistas que opera en las sombras. Bienvenido al futuro.`)
 
 // Matrix animation methods
 const getRandomChar = () => {
@@ -244,6 +238,28 @@ onUnmounted(() => {
   text-shadow: 0 0 20px rgba(0, 0, 0, 0.8);
 }
 
+.title-section {
+  position: relative;
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-left: calc(-50vw + 50%);
+  overflow: visible;
+}
+
+.title-container {
+  position: relative;
+  width: 100vw;
+  overflow: visible;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Title container styles */
+
 .subtitle-glow {
   animation: subtitle-pulse 3s ease-in-out infinite;
 }
@@ -280,27 +296,40 @@ onUnmounted(() => {
   }
 }
 
-/* CTA Button Enhancements */
-.cta-button {
+/* CTA Button Enhancements - V2.2 Enhanced Readability */
+.cta-button-enhanced {
   position: relative;
   overflow: visible;
+  background: #800020 !important;
+  border: 2px solid #800020 !important;
+  transform: scale(1.15);
 }
 
-.pulse-effect {
-  animation: cta-pulse 2s ease-in-out infinite;
+.cta-button-enhanced .cta-text {
+  color: #ffffff !important;
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+  font-weight: 600;
 }
 
-@keyframes cta-pulse {
+.pulse-effect-intense {
+  animation: cta-pulse-intense 1.5s ease-in-out infinite;
+}
+
+@keyframes cta-pulse-intense {
   0%, 100% {
-    box-shadow: 0 0 20px theme('colors.brand-primary');
-    transform: scale(1);
+    box-shadow: 
+      0 0 25px #800020,
+      0 0 40px #800020,
+      0 0 60px rgba(128, 0, 32, 0.8);
+    transform: scale(1.15);
   }
   50% {
     box-shadow: 
-      0 0 30px theme('colors.brand-primary'),
-      0 0 50px theme('colors.brand-primary'),
-      0 0 70px theme('colors.brand-primary');
-    transform: scale(1.05);
+      0 0 35px #800020,
+      0 0 60px #800020,
+      0 0 90px rgba(128, 0, 32, 0.9),
+      0 0 120px rgba(128, 0, 32, 0.6);
+    transform: scale(1.18);
   }
 }
 
@@ -359,8 +388,77 @@ onUnmounted(() => {
   }
 }
 
-/* Responsive adjustments */
-@media (max-width: 768px) {
+/* Desktop Responsive Styles */
+@media (min-width: 1024px) {
+  .subtitle-responsive {
+    font-size: 2rem !important;
+    text-shadow: 0 0 15px rgba(0, 255, 255, 0.8) !important;
+    margin-top: 1rem !important;
+  }
+  
+  .cta-responsive {
+    font-size: 1.5rem !important;
+    padding: 2rem 4rem !important;
+    transform: scale(1.1) !important;
+    margin-top: 2rem !important;
+  }
+  
+  .cta-text {
+    color: #ffffff !important;
+    text-shadow: 0 0 20px rgba(255, 255, 255, 1) !important;
+    font-weight: 800 !important;
+  }
+  
+  .hero-content {
+    max-width: 95vw !important;
+    width: 95vw !important;
+  }
+  
+  .manifesto-container {
+    margin-top: 1rem !important;
+    margin-bottom: 2rem !important;
+  }
+  
+  .manifesto-text {
+    font-size: 1.2rem !important;
+  }
+}
+
+@media (min-width: 1920px) {
+  .subtitle-responsive {
+    font-size: 2.8rem !important;
+  }
+  
+  .manifesto-text {
+    font-size: 1.5rem !important;
+  }
+}
+
+@media (min-width: 2560px) {
+  .subtitle-responsive {
+    font-size: 3.5rem !important;
+  }
+}
+
+/* Tablet styles */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .title-massive {
+    font-size: 8vw !important;
+    line-height: 0.95 !important;
+    transform: scale(1.02) !important;
+  }
+  
+  .subtitle-responsive {
+    @apply text-xl md:text-2xl;
+  }
+  
+  .cta-responsive {
+    @apply text-xl px-16 py-6;
+  }
+}
+
+/* Mobile-specific adjustments */
+@media (max-width: 767px) {
   .matrix-column {
     @apply w-3 text-xs;
   }
@@ -375,7 +473,16 @@ onUnmounted(() => {
   }
   
   .hero-content {
-    padding: 0 1rem;
+    padding: 0 0.5rem;
+  }
+  
+  .subtitle-responsive {
+    @apply text-lg;
+  }
+  
+  .cta-responsive {
+    @apply text-lg px-8 py-4;
+    transform: scale(1) !important;
   }
 }
 

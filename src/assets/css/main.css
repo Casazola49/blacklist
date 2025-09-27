@@ -132,37 +132,37 @@
   }
 }
 
-/* CSS Custom Properties for Advanced Effects */
+/* CSS Custom Properties for Advanced Effects - V2.0 Refined Neon */
 :root {
-  --glow-cyan: 0 0 20px #00ffff;
-  --glow-magenta: 0 0 20px #ff00ff;
-  --glow-brand: 0 0 20px #800020;
-  --glow-success: 0 0 20px #00ff88;
-  --glow-warning: 0 0 20px #ffaa00;
-  --glow-error: 0 0 20px #ff3366;
+  --glow-cyan: 0 0 17px rgba(0, 255, 255, 0.85);
+  --glow-magenta: 0 0 17px rgba(255, 0, 255, 0.85);
+  --glow-brand: 0 0 17px rgba(128, 0, 32, 0.85);
+  --glow-success: 0 0 17px rgba(0, 255, 136, 0.85);
+  --glow-warning: 0 0 17px rgba(255, 170, 0, 0.85);
+  --glow-error: 0 0 17px rgba(255, 51, 102, 0.85);
   
   --gradient-cyber: linear-gradient(135deg, 
-    rgba(0, 255, 255, 0.1) 0%, 
-    rgba(128, 0, 32, 0.1) 50%, 
-    rgba(255, 0, 255, 0.1) 100%
+    rgba(0, 255, 255, 0.085) 0%, 
+    rgba(128, 0, 32, 0.085) 50%, 
+    rgba(255, 0, 255, 0.085) 100%
   );
   
   --gradient-cyber-reverse: linear-gradient(135deg, 
-    rgba(255, 0, 255, 0.1) 0%, 
-    rgba(128, 0, 32, 0.1) 50%, 
-    rgba(0, 255, 255, 0.1) 100%
+    rgba(255, 0, 255, 0.085) 0%, 
+    rgba(128, 0, 32, 0.085) 50%, 
+    rgba(0, 255, 255, 0.085) 100%
   );
   
   --border-cyber: 1px solid;
   --border-cyber-image: linear-gradient(45deg, #00ffff, #ff00ff, #800020) 1;
   
-  --shadow-cyber: 0 10px 30px rgba(0, 255, 255, 0.2),
-                  0 0 20px rgba(0, 255, 255, 0.1),
-                  inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  --shadow-cyber: 0 10px 30px rgba(0, 255, 255, 0.17),
+                  0 0 20px rgba(0, 255, 255, 0.085),
+                  inset 0 1px 0 rgba(255, 255, 255, 0.085);
                   
-  --shadow-cyber-intense: 0 20px 40px rgba(0, 255, 255, 0.3),
-                          0 0 30px rgba(0, 255, 255, 0.2),
-                          inset 0 1px 0 rgba(255, 255, 255, 0.15);
+  --shadow-cyber-intense: 0 20px 40px rgba(0, 255, 255, 0.255),
+                          0 0 30px rgba(0, 255, 255, 0.17),
+                          inset 0 1px 0 rgba(255, 255, 255, 0.1275);
 }
 
 /* Custom scrollbar */

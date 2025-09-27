@@ -11,7 +11,7 @@
           'animated': animated
         }"
         @click="!readonly && selectRating(star)"
-        @mouseenter="!readonly && hoverRating(star)"
+        @mouseenter="!readonly && setHoverRating(star)"
         @mouseleave="!readonly && resetHover()"
       >
         <div class="star-inner">
@@ -85,7 +85,7 @@ const selectRating = (rating: number) => {
   emit('change', rating)
 }
 
-const hoverRating = (rating: number) => {
+const setHoverRating = (rating: number) => {
   hoverRating.value = rating
 }
 

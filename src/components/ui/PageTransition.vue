@@ -16,7 +16,7 @@
 
 <script setup lang="ts">
 import { computed } from 'vue'
-import { useSoundEffects } from '../../composables/useSoundEffects'
+import { useSoundEffects } from '../../composables/useSimpleSoundEffects'
 
 interface Props {
   type?: 'slide' | 'fade' | 'glitch' | 'matrix' | 'hologram' | 'cyber'
