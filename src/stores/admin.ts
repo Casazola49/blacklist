@@ -124,7 +124,9 @@ export const useAdminStore = defineStore('admin', () => {
 
   const loadEscrowTransactions = async () => {
     try {
-      escrowTransactions.value = await EscrowService.getAllEscrowTransactions()
+      // TEMPORARILY DISABLED - Return empty array
+      escrowTransactions.value = []
+      console.log('Escrow temporarily disabled for demo')
     } catch (err) {
       console.error('Error loading escrow transactions:', err)
       throw err

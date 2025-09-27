@@ -57,11 +57,12 @@ export class AdminService {
         throw new Error('Contract not found')
       }
 
-      // Get escrow transaction
-      const escrowTransaction = await EscrowService.getEscrowTransactionByContract(contractId)
-      if (!escrowTransaction) {
-        throw new Error('Escrow transaction not found')
-      }
+      // TEMPORARILY DISABLED - Escrow functionality
+      console.log('Escrow functionality temporarily disabled for demo')
+      // const escrowTransaction = await EscrowService.getEscrowTransactionByContract(contractId)
+      // if (!escrowTransaction) {
+      //   throw new Error('Escrow transaction not found')
+      // }
 
       // Update contract status
       const contractRef = doc(db, 'contratos', contractId)

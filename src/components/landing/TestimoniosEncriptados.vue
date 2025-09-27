@@ -22,10 +22,10 @@
     </div>
 
     <div class="container mx-auto px-6 relative z-10">
-      <!-- Section Header -->
+      <!-- Section Header - V2.1 Unified Trust Module -->
       <div class="text-center mb-16">
         <GlitchText 
-          text="TESTIMONIOS ENCRIPTADOS" 
+          text="PROTOCOLO DE VERIFICACIÓN Y RESULTADOS" 
           class="text-4xl md:text-6xl font-bold mb-6"
         />
         <p class="text-xl text-text-secondary max-w-3xl mx-auto leading-relaxed">
@@ -33,10 +33,10 @@
         </p>
       </div>
 
-      <!-- Testimonials Grid -->
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
+      <!-- Testimonials Grid - Limited to 3 Cards -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
         <div 
-          v-for="(testimonial, index) in testimonials" 
+          v-for="(testimonial, index) in testimonials.slice(0, 3)" 
           :key="testimonial.id"
           class="testimonial-card group"
           :style="{ animationDelay: index * 0.15 + 's' }"
@@ -83,7 +83,7 @@
                 </div>
               </div>
 
-              <!-- Encrypted Content -->
+              <!-- Encrypted Content - Auto-decrypt on scroll -->
               <div class="flex-grow mb-6">
                 <div 
                   :class="{ 'decrypting': decryptingIds.includes(testimonial.id) }"
@@ -95,7 +95,7 @@
                 </div>
               </div>
 
-              <!-- Project Details -->
+              <!-- Project Details - Selective Decryption -->
               <div class="border-t border-accent-cyan/20 pt-4">
                 <div class="flex items-center justify-between text-sm">
                   <span class="text-text-muted">Proyecto:</span>
@@ -112,8 +112,13 @@
                 </div>
                 <div class="flex items-center justify-between text-sm mt-2">
                   <span class="text-text-muted">Impacto:</span>
-                  <div class="flex items-center space-x-1">
-                    <span class="text-green-400 font-bold">+{{ testimonial.impact }}%</span>
+                  <div 
+                    :class="{ 'decrypting': decryptingIds.includes(testimonial.id) }"
+                    class="flex items-center space-x-1 encrypted-text"
+                  >
+                    <span class="text-green-400 font-bold">
+                      {{ decryptingIds.includes(testimonial.id) ? `+${testimonial.impact}%` : '+██%' }}
+                    </span>
                     <i class="fas fa-arrow-up text-green-400 text-xs"></i>
                   </div>
                 </div>
@@ -126,17 +131,28 @@
                   class="flex items-center justify-center space-x-2 text-accent-cyan"
                 >
                   <div class="w-2 h-2 bg-accent-cyan rounded-full animate-pulse"></div>
-                  <span class="text-xs font-mono">DESENCRIPTANDO...</span>
+                  <span class="text-xs font-mono">DATOS VERIFICADOS</span>
                   <div class="w-2 h-2 bg-accent-cyan rounded-full animate-pulse" style="animation-delay: 0.5s"></div>
                 </div>
                 <div v-else class="text-xs text-text-muted font-mono">
                   <i class="fas fa-lock mr-1"></i>
-                  HOVER PARA DESENCRIPTAR
+                  ENCRIPTADO
                 </div>
               </div>
             </div>
           </HologramCard>
         </div>
+      </div>
+
+      <!-- Call to Action - Unified Trust CTA -->
+      <div class="text-center mb-16">
+        <NeonButton 
+          variant="primary" 
+          class="text-lg px-10 py-4"
+          @click="$router.push('/auth')"
+        >
+          ANALIZAR HISTORIAL DE CONTRATOS
+        </NeonButton>
       </div>
 
       <!-- Verification Section -->
@@ -189,6 +205,7 @@
 import { ref, onMounted } from 'vue'
 import GlitchText from '@/components/ui/GlitchText.vue'
 import HologramCard from '@/components/ui/HologramCard.vue'
+import NeonButton from '@/components/ui/NeonButton.vue'
 
 interface Testimonial {
   id: string
@@ -204,32 +221,32 @@ interface Testimonial {
 const testimonials = ref<Testimonial[]>([
   {
     id: 'test-001',
-    author: 'Dr. María González',
-    role: 'Estudiante de Doctorado',
-    content: 'La calidad del trabajo superó todas mis expectativas. El especialista no solo completó mi análisis estadístico, sino que me proporcionó insights que transformaron completamente mi investigación. El nivel de profesionalismo y expertise es incomparable.',
+    author: 'Gabo',
+    role: 'Estudiante de Ing. Quimica',
+    content: 'Definitivamente me salvaron de un apuro gigante. Oferte mi trabajo y me lo aceptaron en menos de 1 hora y me lo realizaron este mismo dia. Aparte de resolver el trabajo me elaboro una guia para que siga estudiando, exelente servicio',
     rating: 5,
-    project: 'Análisis Estadístico Avanzado',
-    completedDate: '2024-01-15',
+    project: 'Trabajo de Dinamica',
+    completedDate: '2025-09-15',
     impact: 95
   },
   {
     id: 'test-002',
-    author: 'Carlos Mendoza',
-    role: 'Estudiante de Maestría',
-    content: 'Increíble experiencia. Mi tesis estaba estancada por meses hasta que encontré a mi especialista. En solo 2 semanas transformó mi trabajo de mediocre a excepcional. La comunicación fue perfecta y el resultado final me ayudó a obtener la máxima calificación.',
+    author: 'Mishu',
+    role: 'Estudiante de Ing. Civil',
+    content: 'Increíble experiencia. No estaba segura de que si mi trabajo estaba bien o no, en la U no encontraba alguien que me ayude. Aqui me lo revisaron rapido y me quitaron las inseguridades que tenia de mi trabajo ademas de dame sugerencias.',
     rating: 5,
-    project: 'Revisión de Tesis de Maestría',
-    completedDate: '2024-01-20',
+    project: 'Revisión de Ejercicios de Calculo Diferencial',
+    completedDate: '2025-09-20',
     impact: 87
   },
   {
     id: 'test-003',
-    author: 'Ana Rodríguez',
-    role: 'Estudiante de Pregrado',
-    content: 'Como estudiante internacional, necesitaba ayuda con el formato y estilo académico local. Mi especialista no solo corrigió mi trabajo, sino que me enseñó técnicas que ahora uso en todos mis proyectos. Valió cada centavo.',
+    author: 'Nickys',
+    role: 'Estudiante de Ing. de Alimentos',
+    content: 'No encontraba alguien de confianza en la U para que me ayude con mis trabajos, pero aqui los encontre (y muchos por Cierto), me parece genial que podamos ofertar y nos den contraoferta dependiendo nuestra economia.',
     rating: 5,
-    project: 'Corrección de Estilo Académico',
-    completedDate: '2024-01-25',
+    project: 'Trabajo de informe de Laboratorio de Organica',
+    completedDate: '2025-09-25',
     impact: 78
   },
   {
@@ -287,7 +304,8 @@ const generateEncryptedText = (originalText: string) => {
   const encryptedChars = '█▓▒░▄▀■□▪▫'
   return originalText.split('').map((char) => {
     if (char === ' ') return ' '
-    if (Math.random() > 0.7) return char // Occasionally show real character
+    if (char === '.' || char === ',' || char === ':') return char // Keep punctuation
+    if (Math.random() > 0.85) return char // Occasionally show real character
     return encryptedChars[Math.floor(Math.random() * encryptedChars.length)]
   }).join('')
 }
@@ -305,6 +323,64 @@ const stopDecryption = (id: string) => {
   }
 }
 
+// Auto-decrypt on scroll - FIXED VERSION
+const setupScrollDecryption = () => {
+  const options = {
+    threshold: 0.3,
+    rootMargin: '50px'
+  }
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        // Find the testimonial ID from the card element
+        const cardElement = entry.target as HTMLElement
+        const testimonialCards = document.querySelectorAll('.testimonial-card')
+        const cardIndex = Array.from(testimonialCards).indexOf(cardElement)
+        
+        if (cardIndex !== -1 && cardIndex < testimonials.value.length) {
+          const testimonialId = testimonials.value[cardIndex].id
+          console.log('Auto-decrypting testimonial:', testimonialId) // Debug log
+          
+          // Start decryption immediately
+          if (!decryptingIds.value.includes(testimonialId)) {
+            decryptingIds.value.push(testimonialId)
+          }
+        }
+      }
+    })
+  }, options)
+
+  return observer
+}
+
+// Auto-decrypt all cards when section becomes visible
+const setupSectionDecryption = () => {
+  const options = {
+    threshold: 0.2,
+    rootMargin: '0px'
+  }
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        console.log('Section visible, auto-decrypting all cards') // Debug log
+        
+        // Decrypt all testimonials with a staggered effect
+        testimonials.value.slice(0, 3).forEach((testimonial, index) => {
+          setTimeout(() => {
+            if (!decryptingIds.value.includes(testimonial.id)) {
+              decryptingIds.value.push(testimonial.id)
+            }
+          }, index * 500) // 500ms delay between each card
+        })
+      }
+    })
+  }, options)
+
+  return observer
+}
+
 onMounted(() => {
   // Add entrance animations
   const cards = document.querySelectorAll('.testimonial-card')
@@ -313,6 +389,15 @@ onMounted(() => {
       card.classList.add('animate-fade-in-up')
     }, index * 150)
   })
+
+  // Setup section-based auto-decryption (more reliable)
+  setTimeout(() => {
+    const sectionElement = document.querySelector('.testimonios-encriptados')
+    if (sectionElement) {
+      const sectionObserver = setupSectionDecryption()
+      sectionObserver.observe(sectionElement)
+    }
+  }, 500)
 })
 </script>
 
@@ -387,26 +472,35 @@ onMounted(() => {
 
 @keyframes contentDecrypt {
   0% {
+    filter: blur(4px);
+    opacity: 0.2;
+    transform: scale(0.98);
+  }
+  20% {
     filter: blur(3px);
-    opacity: 0.3;
-  }
-  25% {
-    filter: blur(2px);
-    opacity: 0.5;
-  }
-  50% {
-    filter: blur(1px);
-    opacity: 0.7;
+    opacity: 0.4;
     color: var(--accent-cyan);
   }
-  75% {
+  40% {
+    filter: blur(2px);
+    opacity: 0.6;
+    transform: scale(1.01);
+  }
+  60% {
+    filter: blur(1px);
+    opacity: 0.8;
+    color: var(--accent-magenta);
+  }
+  80% {
     filter: blur(0.5px);
-    opacity: 0.9;
+    opacity: 0.95;
+    transform: scale(1);
   }
   100% {
     filter: blur(0);
     opacity: 1;
     color: var(--text-secondary);
+    transform: scale(1);
   }
 }
 

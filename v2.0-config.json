@@ -1,0 +1,154 @@
+{
+  "version": "2.2.0",
+  "name": "The Blacklist v2.2 - Experiencia Futurista Optimizada",
+  "description": "Versión con diseño futurista avanzado, auto-desencriptado y optimizaciones desktop específicas",
+  "changes": {
+    "visual": {
+      "theme": "Credible Futurism - tecnológicamente avanzado pero funcional y creíble",
+      "neon_opacity_reduction": "15% reducción en opacidad de brillos neón para look más sofisticado",
+      "color_scheme": {
+        "primary": "#800020",
+        "description": "Guindo Oscuro mantenido como color principal"
+      }
+    },
+    "structural": {
+      "removed_sections": [
+        "Tienda de Recursos",
+        "Arsenal de IA", 
+        "Biblioteca Clasificada"
+      ],
+      "navigation": {
+        "items": [
+          "Protocolo",
+          "Operadores", 
+          "Estadísticas",
+          "Testimonios",
+          "FAQ",
+          "Acceso (botón)"
+        ]
+      }
+    },
+    "components": {
+      "hero_section": {
+        "new_text": "El sistema tradicional ha fallado. Somos la alternativa. Una red clandestina que opera en las sombras. Bienvenido al futuro.",
+        "cta_button": "ACCEDER AL PROTOCOLO",
+        "v2_1_enhancements": {
+          "button_size": "15% más grande",
+          "background": "Guindo sólido (#800020)",
+          "animation": "Pulso de brillo neón lento y constante para máxima atracción visual"
+        }
+      },
+      "protocolo_operacion": {
+        "animation": "Activación en cadena de izquierda a derecha con 400ms de delay entre paneles",
+        "tooltips": "Tooltips explicativos al hacer hover en lugar de etiqueta 'SISTEMA ACTIVO'"
+      },
+      "galeria_elite": {
+        "title": "OPERADORES DE ÉLITE DEL SINDICATO",
+        "subtitle": "Cada especialista ha superado nuestro riguroso protocolo de verificación de habilidades y discreción."
+      },
+      "estadisticas_sistema": {
+        "animated_counters": true,
+        "new_values": {
+          "proyectos": 482,
+          "satisfaccion": "98%", 
+          "tiempo_respuesta": "4h",
+          "especialistas": 74
+        },
+        "performance_metrics": {
+          "changed": "Eficiencia del Sistema → Tasa de Entrega a Tiempo (99.2%)"
+        },
+        "v2_1_network_monitoring": {
+          "live_simulation": "Porcentajes operativos fluctúan sutilmente cada 3 segundos",
+          "pulse_animation": "Animación de pulso CSS lenta en círculos de progreso",
+          "credibility": "Simula monitoreo en vivo para máxima credibilidad"
+        }
+      },
+      "testimonios_encriptados": {
+        "v2_1_title": "PROTOCOLO DE VERIFICACIÓN Y RESULTADOS",
+        "fusion": "Fusionado con sección de verificación en un solo módulo de confianza",
+        "testimonials_limit": "Solo 3 tarjetas mostradas",
+        "hover_interaction": "Texto encriptado permanece encriptado, solo Proyecto e Impacto se revelan",
+        "cta_button": "ANALIZAR HISTORIAL DE CONTRATOS"
+      },
+      "faq": {
+        "detection_answer": "Nuestra plataforma opera con protocolos de encriptación de extremo a extremo para garantizar la máxima confidencialidad entre Cliente y Especialista. La gestión de los entregables finales es responsabilidad exclusiva del Cliente, de acuerdo a los términos de servicio de su institución.",
+        "quality_answer": "La calidad es asegurada por tres mecanismos: nuestro riguroso proceso de selección de Especialistas, el sistema de reputación basado en las calificaciones de Clientes anteriores, y nuestro sistema de depósito en garantía (escrow), que retiene el pago hasta que el Cliente aprueba el entregable final.",
+        "v2_1_accordion": {
+          "behavior": "Solo una respuesta abierta a la vez",
+          "animation": "Slide-down suave con cubic-bezier para expansión/contracción",
+          "ux_improvement": "Experiencia de usuario más limpia y enfocada"
+        }
+      }
+    },
+    "lexicon": {
+      "enforced_terms": {
+        "contrato": "En lugar de proyecto",
+        "cliente": "En lugar de usuario/estudiante", 
+        "especialista": "En lugar de freelancer/tutor",
+        "protocolo": "Sistema/proceso operativo"
+      }
+    }
+  },
+  "technical_improvements": {
+    "css_variables": "Reducción de opacidad en variables CSS para efectos neón",
+    "animations": "Nuevas animaciones de activación en cadena y efectos de hover",
+    "navigation": "Nuevo componente NavigationBar con scroll suave a secciones",
+    "responsive": "Mantenimiento de diseño responsivo en todos los componentes"
+  },
+  "files_modified": [
+    "src/assets/css/main.css",
+    "src/views/LandingView.vue",
+    "src/components/landing/HeroSection.vue",
+    "src/components/landing/ProtocoloOperacion.vue", 
+    "src/components/landing/GaleriaElite.vue",
+    "src/components/landing/EstadisticasSistema.vue",
+    "src/components/landing/TestimoniosEncriptados.vue",
+    "src/components/landing/PreguntasProtocolo.vue"
+  ],
+  "files_created": [
+    "src/components/ui/NavigationBar.vue",
+    "v2.0-config.json"
+  ],
+  "deployment_ready": true,
+  "v2_1_refinements": {
+    "conversion_optimization": "Botón CTA principal 15% más grande con pulso neón intenso",
+    "trust_module_fusion": "Testimonios y verificación fusionados en módulo único",
+    "live_monitoring": "Simulación de monitoreo en vivo para credibilidad absoluta",
+    "accordion_ux": "FAQ convertido a acordeón con una sola respuesta abierta"
+  },
+  "v2_2_enhancements": {
+    "protocolo_operacion": {
+      "futuristic_design": "Diseño completamente rediseñado con marcos animados y efectos holográficos",
+      "enhanced_readability": "Tipografía mejorada con text-shadow y mayor contraste",
+      "animated_borders": "Marcos con esquinas animadas y líneas de escaneo",
+      "holographic_background": "Capas holográficas con efectos de pulso",
+      "scanning_effects": "Líneas de escaneo animadas cuando se activa cada panel"
+    },
+    "testimonios_auto_decrypt": {
+      "scroll_activation": "Desencriptado automático al hacer scroll en la sección",
+      "intersection_observer": "Detección automática cuando las tarjetas entran en viewport",
+      "improved_ux": "No requiere hover manual, experiencia más fluida"
+    },
+    "desktop_optimizations": {
+      "title_size": "Título 'THE BLACKLIST' muchísimo más grande en desktop (12rem)",
+      "button_readability": "Texto del botón más legible con text-shadow y color blanco",
+      "responsive_design": "Optimizaciones solo para desktop, móvil mantiene proporciones originales"
+    }
+  },
+  "testing_required": [
+    "Verificar animaciones de activación en cadena",
+    "Probar navegación suave entre secciones", 
+    "Validar tooltips en componente Protocolo",
+    "Confirmar efectos de hover selectivos en Testimonios",
+    "Revisar contadores animados en Estadísticas",
+    "Probar simulación de monitoreo en vivo",
+    "Validar comportamiento de acordeón en FAQ",
+    "Confirmar impacto visual del CTA optimizado",
+    "Probar nuevo diseño futurista de Protocolo de Operación",
+    "Validar legibilidad mejorada en todos los textos",
+    "Confirmar auto-desencriptado en scroll de Testimonios",
+    "Verificar título gigante solo en desktop (>1024px)",
+    "Probar legibilidad del botón CTA en desktop",
+    "Validar que móvil mantiene proporciones originales"
+  ]
+}

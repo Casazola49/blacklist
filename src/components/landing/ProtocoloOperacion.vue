@@ -20,7 +20,7 @@
         <div class="subtitle-container">
           <div class="subtitle-line"></div>
           <p class="text-xl text-accent-cyan font-mono tracking-wider px-6">
-            PROCESO DE INFILTRACIÓN EN 6 FASES
+            FLUJO DE TRABAJO SIMPLIFICADO EN 6 PASOS
           </p>
           <div class="subtitle-line"></div>
         </div>
@@ -59,22 +59,37 @@
           />
         </svg>
 
-        <!-- Protocol Steps -->
+        <!-- Protocol Steps - V2.2 Futuristic Design -->
         <div 
           v-for="(step, index) in protocolSteps" 
           :key="step.id"
           :ref="(el) => { if (el) stepRefs[index] = el as HTMLElement }"
-          class="protocol-step"
+          class="protocol-step futuristic-card"
           :class="{ 'protocol-step--visible': step.visible }"
           :style="{ animationDelay: `${index * 0.2}s` }"
         >
-          <HologramCard 
-            :variant="step.variant"
-            :active="step.visible"
-            :show-particles="step.visible"
-            :intensity="1.2"
-            class="step-card h-full"
-          >
+          <div class="futuristic-container">
+            <!-- Animated Border Frame -->
+            <div class="border-frame">
+              <div class="corner corner-tl"></div>
+              <div class="corner corner-tr"></div>
+              <div class="corner corner-bl"></div>
+              <div class="corner corner-br"></div>
+              <div class="border-line border-top"></div>
+              <div class="border-line border-right"></div>
+              <div class="border-line border-bottom"></div>
+              <div class="border-line border-left"></div>
+            </div>
+
+            <!-- Holographic Background -->
+            <div class="holographic-bg">
+              <div class="holo-layer" v-for="i in 3" :key="i" :style="{ animationDelay: `${i * 0.3}s` }"></div>
+            </div>
+
+            <!-- Content Container -->
+            <div class="step-content-container"
+              :class="{ 'content-active': step.visible }"
+            >
             <!-- Step Number -->
             <div class="step-number">
               <div class="number-glow">
@@ -97,31 +112,33 @@
               </div>
             </div>
 
-            <!-- Step Content -->
-            <div class="step-content">
-              <h3 class="text-xl font-orbitron font-bold text-primary mb-3">
-                {{ step.title }}
-              </h3>
-              <p class="text-text-secondary text-sm leading-relaxed mb-4">
-                {{ step.description }}
-              </p>
-              
-              <!-- Status Indicator -->
-              <div class="status-indicator">
-                <div class="status-bar">
-                  <div class="status-fill" :style="{ width: step.visible ? '100%' : '0%' }"></div>
+              <!-- Step Content - Enhanced Readability -->
+              <div class="step-content-inner">
+                <h3 class="step-title">
+                  {{ step.title }}
+                </h3>
+                <p class="step-description">
+                  {{ step.description }}
+                </p>
+                
+                <!-- Enhanced Status Indicator -->
+                <div class="status-indicator-enhanced">
+                  <div class="status-bar-enhanced">
+                    <div class="status-fill-enhanced" :style="{ width: step.visible ? '100%' : '0%' }"></div>
+                    <div class="status-glow" v-if="step.visible"></div>
+                  </div>
+                  <div class="status-text" v-if="step.visible">
+                    <span class="status-label">{{ step.tooltip }}</span>
+                  </div>
                 </div>
-                <span class="status-text text-xs font-mono text-accent-cyan">
-                  {{ step.visible ? 'SISTEMA ACTIVO' : 'ESPERANDO ACTIVACIÓN' }}
-                </span>
+              </div>
+
+              <!-- Scanning Lines Effect -->
+              <div class="scanning-lines" v-if="step.visible">
+                <div class="scan-line" v-for="i in 4" :key="i" :style="{ animationDelay: `${i * 0.2}s` }"></div>
               </div>
             </div>
-
-            <!-- 3D Hologram Effect -->
-            <div class="hologram-overlay" v-if="step.visible">
-              <div class="hologram-layer" v-for="i in 3" :key="i" :style="{ animationDelay: `${i * 0.1}s` }"></div>
-            </div>
-          </HologramCard>
+          </div>
         </div>
       </div>
 
@@ -137,7 +154,7 @@
               variant="secondary"
             />
             <p class="text-text-secondary font-mono">
-              Sistema de infiltración académica operativo. Acceso autorizado.
+              Proceso optimizado para máxima eficiencia y seguridad. Sistema operativo.
             </p>
           </div>
           <div class="summary-line"></div>
@@ -213,13 +230,14 @@ const CompleteIcon = {
   `
 }
 
-// Protocol steps data
+// Protocol steps data - V2.2 Claridad Funcional
 const protocolSteps = ref([
   {
     id: 1,
     number: '01',
-    title: 'ACCESO INICIAL',
-    description: 'Infiltración en el sistema mediante autenticación segura. Verificación de credenciales y establecimiento de conexión encriptada.',
+    title: 'CREAR EL CONTRATO',
+    description: 'Publica tu proyecto académico con detalles específicos: materia, nivel, fecha límite y presupuesto. Define exactamente qué necesitas.',
+    tooltip: 'Sistema de publicación de contratos activo',
     icon: 'access',
     iconComponent: AccessIcon,
     variant: 'primary' as const,
@@ -228,8 +246,9 @@ const protocolSteps = ref([
   {
     id: 2,
     number: '02',
-    title: 'ESCANEO DE OBJETIVOS',
-    description: 'Análisis de oportunidades disponibles. Identificación de especialistas compatibles y evaluación de proyectos activos.',
+    title: 'RECIBIR PROPUESTAS',
+    description: 'Los especialistas de élite envían sus ofertas con precio, tiempo de entrega y muestras de trabajo. Compara y evalúa.',
+    tooltip: 'Sistema de matching inteligente operativo',
     icon: 'scan',
     iconComponent: ScanIcon,
     variant: 'secondary' as const,
@@ -238,8 +257,9 @@ const protocolSteps = ref([
   {
     id: 3,
     number: '03',
-    title: 'ESTABLECER CONEXIÓN',
-    description: 'Iniciación de protocolo de comunicación segura. Intercambio de propuestas y negociación de términos operativos.',
+    title: 'SELECCIONAR ESPECIALISTA',
+    description: 'Elige al candidato ideal basándote en su experiencia, calificaciones y propuesta. Inicia la comunicación directa.',
+    tooltip: 'Canal de comunicación encriptado establecido',
     icon: 'connect',
     iconComponent: ConnectIcon,
     variant: 'accent' as const,
@@ -248,8 +268,9 @@ const protocolSteps = ref([
   {
     id: 4,
     number: '04',
-    title: 'EJECUTAR MISIÓN',
-    description: 'Activación del sistema de escrow y inicio de operaciones. Monitoreo en tiempo real del progreso de la misión.',
+    title: 'PAGAR CON SEGURIDAD',
+    description: 'Deposita el pago en nuestro sistema de escrow. Los fondos se mantienen seguros hasta que apruebes el trabajo final.',
+    tooltip: 'Protocolo de escrow automático iniciado',
     icon: 'execute',
     iconComponent: ExecuteIcon,
     variant: 'primary' as const,
@@ -258,8 +279,9 @@ const protocolSteps = ref([
   {
     id: 5,
     number: '05',
-    title: 'PROTOCOLO SEGURO',
-    description: 'Verificación de entregables y validación de calidad. Activación de protocolos de seguridad para transferencia.',
+    title: 'RECIBIR EL TRABAJO',
+    description: 'El especialista entrega tu proyecto completado. Revisa, solicita ajustes si es necesario y valida la calidad.',
+    tooltip: 'Sistema de verificación de calidad activo',
     icon: 'secure',
     iconComponent: SecureIcon,
     variant: 'secondary' as const,
@@ -268,8 +290,9 @@ const protocolSteps = ref([
   {
     id: 6,
     number: '06',
-    title: 'MISIÓN COMPLETADA',
-    description: 'Finalización exitosa de la operación. Liberación de fondos, evaluación mutua y actualización de registros.',
+    title: 'LIBERAR EL PAGO',
+    description: 'Una vez satisfecho con el resultado, autoriza la liberación del pago. Califica al especialista y completa la operación.',
+    tooltip: 'Protocolo de finalización ejecutado exitosamente',
     icon: 'complete',
     iconComponent: CompleteIcon,
     variant: 'accent' as const,
@@ -308,7 +331,24 @@ const getStreamStyle = (index: number) => {
   }
 }
 
-// Intersection Observer setup
+// Chain activation animation
+const activateChainSequence = () => {
+  protocolSteps.value.forEach((step, index) => {
+    setTimeout(() => {
+      step.visible = true
+      
+      // Trigger connection line animation
+      const lineIndex = Math.floor(index / 2)
+      if (connectionLines.value[lineIndex]) {
+        setTimeout(() => {
+          connectionLines.value[lineIndex].visible = true
+        }, 300)
+      }
+    }, index * 400) // 400ms delay between each activation
+  })
+}
+
+// Intersection Observer setup - V2.0 Chain Activation
 const setupIntersectionObserver = () => {
   const options = {
     threshold: 0.3,
@@ -323,18 +363,11 @@ const setupIntersectionObserver = () => {
         } else if (entry.target === summaryRef.value) {
           summaryVisible.value = true
         } else {
-          // Handle step visibility
-          const stepIndex = stepRefs.value.findIndex(ref => ref === entry.target)
-          if (stepIndex !== -1) {
-            protocolSteps.value[stepIndex].visible = true
-            
-            // Trigger connection line animation
-            const lineIndex = Math.floor(stepIndex / 2)
-            if (connectionLines.value[lineIndex]) {
-              setTimeout(() => {
-                connectionLines.value[lineIndex].visible = true
-              }, stepIndex * 200)
-            }
+          // Check if this is the protocol grid container
+          const isProtocolGrid = entry.target.classList.contains('protocol-grid')
+          if (isProtocolGrid && !protocolSteps.value[0].visible) {
+            // Start chain activation when protocol grid becomes visible
+            activateChainSequence()
           }
         }
       }
@@ -344,9 +377,10 @@ const setupIntersectionObserver = () => {
   // Observe elements
   if (headerRef.value) observer.observe(headerRef.value)
   if (summaryRef.value) observer.observe(summaryRef.value)
-  stepRefs.value.forEach(ref => {
-    if (ref) observer.observe(ref)
-  })
+  
+  // Observe the protocol grid container instead of individual steps
+  const protocolGrid = document.querySelector('.protocol-grid')
+  if (protocolGrid) observer.observe(protocolGrid)
 
   return observer
 }
@@ -444,7 +478,7 @@ onUnmounted(() => {
   }
 }
 
-/* Protocol Steps */
+/* Protocol Steps - V2.2 Futuristic Design */
 .protocol-step {
   @apply opacity-0 transform translate-y-8;
   transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
@@ -454,9 +488,229 @@ onUnmounted(() => {
   @apply opacity-100 transform translate-y-0;
 }
 
-.step-card {
-  @apply relative overflow-hidden;
-  min-height: 320px;
+.futuristic-card {
+  min-height: 350px;
+  position: relative;
+}
+
+.futuristic-container {
+  @apply relative w-full h-full;
+  background: linear-gradient(135deg, 
+    rgba(0, 255, 255, 0.05) 0%, 
+    rgba(26, 26, 26, 0.95) 30%, 
+    rgba(26, 26, 26, 0.95) 70%, 
+    rgba(255, 0, 255, 0.05) 100%
+  );
+  border-radius: 12px;
+  overflow: hidden;
+  backdrop-filter: blur(10px);
+  min-height: 350px;
+}
+
+/* Animated Border Frame */
+.border-frame {
+  @apply absolute inset-0 pointer-events-none;
+  z-index: 10;
+}
+
+.corner {
+  @apply absolute w-6 h-6;
+  border: 2px solid #00ffff;
+  animation: corner-glow 2s ease-in-out infinite alternate;
+}
+
+.corner-tl { top: 0; left: 0; border-right: none; border-bottom: none; }
+.corner-tr { top: 0; right: 0; border-left: none; border-bottom: none; }
+.corner-bl { bottom: 0; left: 0; border-right: none; border-top: none; }
+.corner-br { bottom: 0; right: 0; border-left: none; border-top: none; }
+
+.border-line {
+  @apply absolute bg-gradient-to-r from-transparent via-accent-cyan to-transparent;
+  opacity: 0.6;
+  animation: border-scan 3s linear infinite;
+}
+
+.border-top { top: 0; left: 24px; right: 24px; height: 1px; }
+.border-bottom { bottom: 0; left: 24px; right: 24px; height: 1px; }
+.border-left { left: 0; top: 24px; bottom: 24px; width: 1px; 
+  background: linear-gradient(to bottom, transparent, #00ffff, transparent); }
+.border-right { right: 0; top: 24px; bottom: 24px; width: 1px; 
+  background: linear-gradient(to bottom, transparent, #00ffff, transparent); }
+
+/* Holographic Background */
+.holographic-bg {
+  @apply absolute inset-0;
+  z-index: 1;
+}
+
+.holo-layer {
+  @apply absolute inset-0;
+  background: radial-gradient(circle at 50% 50%, 
+    rgba(0, 255, 255, 0.1) 0%, 
+    transparent 70%
+  );
+  animation: holo-pulse 4s ease-in-out infinite;
+}
+
+.holo-layer:nth-child(2) {
+  background: radial-gradient(circle at 30% 70%, 
+    rgba(255, 0, 255, 0.08) 0%, 
+    transparent 60%
+  );
+}
+
+.holo-layer:nth-child(3) {
+  background: radial-gradient(circle at 70% 30%, 
+    rgba(128, 0, 32, 0.06) 0%, 
+    transparent 50%
+  );
+}
+
+/* Content Container */
+.step-content-container {
+  @apply relative z-20 p-8 h-full flex flex-col;
+  transition: all 0.6s ease;
+}
+
+.content-active {
+  animation: content-activate 1s ease-out;
+}
+
+.step-content-inner {
+  @apply flex-grow flex flex-col justify-between;
+}
+
+/* Enhanced Typography */
+.step-title {
+  @apply text-2xl font-orbitron font-bold mb-4;
+  color: #ffffff;
+  text-shadow: 0 0 15px rgba(0, 255, 255, 0.8);
+  letter-spacing: 1px;
+  line-height: 1.2;
+}
+
+.step-description {
+  @apply text-base leading-relaxed mb-6 flex-grow;
+  color: #e0e0e0;
+  text-shadow: 0 0 8px rgba(255, 255, 255, 0.3);
+  font-weight: 400;
+  line-height: 1.6;
+}
+
+/* Enhanced Status Indicator */
+.status-indicator-enhanced {
+  @apply mt-auto;
+}
+
+.status-bar-enhanced {
+  @apply relative w-full h-2 bg-gray-800 rounded-full overflow-hidden mb-3;
+  border: 1px solid rgba(0, 255, 255, 0.3);
+}
+
+.status-fill-enhanced {
+  @apply h-full bg-gradient-to-r from-accent-cyan via-accent-magenta to-accent-cyan;
+  transition: width 2s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 0 15px currentColor;
+  animation: status-flow 2s linear infinite;
+}
+
+.status-glow {
+  @apply absolute inset-0 bg-gradient-to-r from-transparent via-white to-transparent opacity-30;
+  animation: status-sweep 2s ease-in-out infinite;
+}
+
+.status-text {
+  @apply text-center;
+}
+
+.status-label {
+  @apply text-sm font-mono text-accent-cyan;
+  text-shadow: 0 0 10px currentColor;
+  animation: text-glow 2s ease-in-out infinite alternate;
+}
+
+/* Scanning Lines Effect */
+.scanning-lines {
+  @apply absolute inset-0 pointer-events-none;
+  z-index: 30;
+}
+
+.scan-line {
+  @apply absolute w-full h-px bg-accent-cyan opacity-60;
+  animation: scan-sweep 3s linear infinite;
+}
+
+.scan-line:nth-child(1) { top: 20%; }
+.scan-line:nth-child(2) { top: 40%; }
+.scan-line:nth-child(3) { top: 60%; }
+.scan-line:nth-child(4) { top: 80%; }
+
+/* Animations */
+@keyframes corner-glow {
+  0% { 
+    box-shadow: 0 0 5px #00ffff;
+    border-color: #00ffff;
+  }
+  100% { 
+    box-shadow: 0 0 20px #00ffff, 0 0 30px #00ffff;
+    border-color: #ffffff;
+  }
+}
+
+@keyframes border-scan {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+@keyframes holo-pulse {
+  0%, 100% { 
+    opacity: 0.3;
+    transform: scale(1);
+  }
+  50% { 
+    opacity: 0.6;
+    transform: scale(1.05);
+  }
+}
+
+@keyframes content-activate {
+  0% {
+    opacity: 0;
+    transform: translateY(20px) scale(0.95);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes status-flow {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+@keyframes status-sweep {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+@keyframes text-glow {
+  0% { text-shadow: 0 0 10px currentColor; }
+  100% { text-shadow: 0 0 20px currentColor, 0 0 30px currentColor; }
+}
+
+@keyframes scan-sweep {
+  0% { 
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% { 
+    transform: translateX(100%);
+    opacity: 0;
+  }
 }
 
 /* Step Number */
@@ -554,14 +808,34 @@ onUnmounted(() => {
   box-shadow: 0 0 10px currentColor;
 }
 
-.status-text {
-  @apply block text-center;
-  animation: status-blink 2s ease-in-out infinite;
+/* Tooltip Styles - V2.0 */
+.step-tooltip {
+  @apply absolute bottom-4 left-4 right-4 opacity-0 pointer-events-none;
+  transition: opacity 0.3s ease;
+  z-index: 40;
 }
 
-@keyframes status-blink {
-  0%, 100% { opacity: 0.7; }
-  50% { opacity: 1; }
+.step-card:hover .step-tooltip {
+  @apply opacity-100;
+}
+
+.tooltip-text {
+  @apply block text-xs font-mono text-accent-cyan text-center;
+  @apply bg-bg-primary/90 backdrop-blur-sm border border-accent-cyan/30;
+  @apply px-3 py-2 rounded;
+  box-shadow: 0 0 15px rgba(0, 255, 255, 0.3);
+  animation: tooltip-glow 2s ease-in-out infinite alternate;
+}
+
+@keyframes tooltip-glow {
+  0% { 
+    box-shadow: 0 0 15px rgba(0, 255, 255, 0.3);
+    border-color: rgba(0, 255, 255, 0.3);
+  }
+  100% { 
+    box-shadow: 0 0 25px rgba(0, 255, 255, 0.5);
+    border-color: rgba(0, 255, 255, 0.5);
+  }
 }
 
 /* Hologram Overlay */

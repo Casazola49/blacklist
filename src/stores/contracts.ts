@@ -99,18 +99,18 @@ export const useContractsStore = defineStore('contracts', () => {
       // Assign contract to specialist
       await ContractsService.assignContract(contractId, proposal.especialistaId, proposal.precio)
       
-      // Create escrow transaction
-      const contract = await ContractsService.getContract(contractId)
-      if (contract) {
-        await EscrowService.createEscrowTransaction({
-          contratoId: contractId,
-          clienteId: contract.clienteId,
-          especialistaId: proposal.especialistaId,
-          monto: proposal.precio,
-          estado: 'pendiente_deposito',
-          comisionPlataforma: Math.round(proposal.precio * 0.15 * 100) / 100
-        })
-      }
+      // Create escrow transaction - TEMPORARILY DISABLED
+      // const contract = await ContractsService.getContract(contractId)
+      // if (contract) {
+      //   await EscrowService.createEscrowTransaction({
+      //     contratoId: contractId,
+      //     clienteId: contract.clienteId,
+      //     especialistaId: proposal.especialistaId,
+      //     monto: proposal.precio,
+      //     estado: 'pendiente_deposito',
+      //     comisionPlataforma: Math.round(proposal.precio * 0.15 * 100) / 100
+      //   })
+      // }
       
       // Reload data
       await loadContractProposals(contractId)
@@ -130,7 +130,9 @@ export const useContractsStore = defineStore('contracts', () => {
     try {
       loading.value = true
       error.value = null
-      escrowTransactions.value = await EscrowService.getClientEscrowTransactions(clienteId)
+      // TEMPORARILY DISABLED - Return empty array
+      escrowTransactions.value = []
+      console.log('Escrow temporarily disabled for demo')
     } catch (err) {
       error.value = err instanceof Error ? err.message : 'Error al cargar transacciones escrow'
       throw err

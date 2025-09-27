@@ -3,7 +3,9 @@ import {
   GoogleAuthProvider, 
   signOut as firebaseSignOut,
   onAuthStateChanged,
-  User
+  User,
+  getRedirectResult,
+  signInWithRedirect
 } from 'firebase/auth'
 import { doc, setDoc, Timestamp } from 'firebase/firestore'
 import { auth, db } from './firebase'
@@ -11,6 +13,12 @@ import { UsersService } from './users'
 import type { Usuario, Cliente, Especialista } from '../types'
 
 const googleProvider = new GoogleAuthProvider()
+// Configure Google provider
+googleProvider.addScope('email')
+googleProvider.addScope('profile')
+googleProvider.setCustomParameters({
+  prompt: 'select_account'
+})
 
 export class AuthService {
   /**
@@ -18,10 +26,38 @@ export class AuthService {
    */
   static async signInWithGoogle(): Promise<User | null> {
     try {
-      const result = await signInWithPopup(auth, googleProvider)
-      return result.user
-    } catch (error) {
+      // In development, try popup first, but use redirect as primary in production
+      if (import.meta.env.DEV) {
+        try {
+          const result = await signInWithPopup(auth, googleProvider)
+          return result.user
+        } catch (popupError: any) {
+          console.warn('Popup failed, falling back to redirect:', popupError)
+          // Fall through to redirect method
+        }
+      }
+      
+      // Use redirect method (more reliable)
+      console.log('Using redirect method for Google sign-in...')
+      await signInWithRedirect(auth, googleProvider)
+      // The result will be handled by getRedirectResult on page load
+      return null
+      
+    } catch (error: any) {
       console.error('Error signing in with Google:', error)
+      throw error
+    }
+  }
+
+  /**
+   * Handle redirect result after sign-in
+   */
+  static async handleRedirectResult(): Promise<User | null> {
+    try {
+      const result = await getRedirectResult(auth)
+      return result?.user || null
+    } catch (error) {
+      console.error('Error handling redirect result:', error)
       throw error
     }
   }

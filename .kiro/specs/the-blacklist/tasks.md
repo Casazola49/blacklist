@@ -209,7 +209,6 @@
 
 - [x] 24. Integración y testing final del sistema completo
 
-
   - Realizar testing end-to-end de todos los flujos de usuario
   - Verificar funcionamiento correcto del sistema de escrow
   - Probar sistema de notificaciones en tiempo real
