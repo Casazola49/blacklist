@@ -43,58 +43,23 @@ const user = ref(null)
 const loading = ref(false)
 const error = ref('')
 
-// Initialize Firebase manually to avoid import issues
-const initFirebase = async () => {
-  try {
-    // Dynamic import to avoid build issues
-    const { initializeApp } = await import('firebase/app')
-    const { getAuth, GoogleAuthProvider, signInWithPopup, signOut as firebaseSignOut, onAuthStateChanged } = await import('firebase/auth')
-    
-    const firebaseConfig = {
-      apiKey: "AIzaSyAokSPNcEbfnS8NVLbHmuQeIrgq7pAuaOs",
-      authDomain: "the-blacklist-879f1.firebaseapp.com",
-      projectId: "the-blacklist-879f1",
-      storageBucket: "the-blacklist-879f1.firebasestorage.app",
-      messagingSenderId: "404649419019",
-      appId: "1:404649419019:web:4bd719a1ba4b6a1c3d020e",
-      measurementId: "G-E8Y44WN635"
-    }
-    
-    const app = initializeApp(firebaseConfig)
-    const auth = getAuth(app)
-    
-    // Configure auth for better popup handling
-    auth.useDeviceLanguage()
-    
-    // Listen for auth state changes
-    onAuthStateChanged(auth, (firebaseUser) => {
-      user.value = firebaseUser
-      loading.value = false
-    })
-    
-    return { auth, GoogleAuthProvider, signInWithPopup, firebaseSignOut }
-  } catch (err) {
-    console.error('Firebase initialization error:', err)
-    error.value = 'Error al inicializar Firebase'
+// Use existing Firebase service
+import { auth } from '@/services/firebase'
+import { GoogleAuthProvider, signInWithPopup, signOut as firebaseSignOut, onAuthStateChanged } from 'firebase/auth'
+
+// Initialize auth state listener
+const initAuth = () => {
+  onAuthStateChanged(auth, (firebaseUser) => {
+    user.value = firebaseUser
     loading.value = false
-    return null
-  }
+  })
 }
 
-let firebaseServices = null
-
 const signInWithGoogle = async () => {
-  if (!firebaseServices) {
-    loading.value = true
-    firebaseServices = await initFirebase()
-    if (!firebaseServices) return
-  }
-  
   loading.value = true
   error.value = ''
   
   try {
-    const { auth, GoogleAuthProvider, signInWithPopup } = firebaseServices
     const provider = new GoogleAuthProvider()
     
     // Configure provider
@@ -123,10 +88,7 @@ const signInWithGoogle = async () => {
 }
 
 const signOut = async () => {
-  if (!firebaseServices) return
-  
   try {
-    const { auth, firebaseSignOut } = firebaseServices
     await firebaseSignOut(auth)
     user.value = null
   } catch (err: any) {
@@ -138,9 +100,9 @@ const clearError = () => {
   error.value = ''
 }
 
-onMounted(async () => {
+onMounted(() => {
   loading.value = true
-  firebaseServices = await initFirebase()
+  initAuth()
 })
 </script>
 
