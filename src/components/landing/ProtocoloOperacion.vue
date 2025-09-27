@@ -905,11 +905,15 @@ onUnmounted(() => {
 /* Responsive Design */
 @media (max-width: 768px) {
   .protocol-grid {
-    @apply grid-cols-1 gap-6;
+    @apply grid-cols-1 gap-6 px-4;
   }
   
-  .step-card {
-    min-height: 280px;
+  .futuristic-card {
+    min-height: 320px;
+  }
+  
+  .futuristic-container {
+    min-height: 320px;
   }
   
   .connection-lines {
@@ -931,9 +935,37 @@ onUnmounted(() => {
   .summary-line {
     @apply w-24;
   }
+  
+  .step-content-container {
+    @apply p-6;
+  }
+  
+  .step-title {
+    @apply text-xl;
+  }
+  
+  .step-description {
+    @apply text-sm leading-relaxed;
+  }
 }
 
 @media (max-width: 480px) {
+  .protocolo-section {
+    @apply py-12;
+  }
+  
+  .protocol-grid {
+    @apply gap-4 px-2;
+  }
+  
+  .futuristic-card {
+    min-height: 300px;
+  }
+  
+  .futuristic-container {
+    min-height: 300px;
+  }
+  
   .step-number {
     @apply -top-2 -right-2 w-12 h-12;
   }
@@ -948,6 +980,48 @@ onUnmounted(() => {
   
   .icon-hologram {
     @apply w-10 h-10;
+  }
+  
+  .step-content-container {
+    @apply p-4;
+  }
+  
+  .step-title {
+    @apply text-lg mb-3;
+  }
+  
+  .step-description {
+    @apply text-sm leading-relaxed mb-4;
+  }
+  
+  .status-label {
+    @apply text-xs;
+  }
+}
+
+@media (max-width: 360px) {
+  .protocol-grid {
+    @apply px-1;
+  }
+  
+  .futuristic-card {
+    min-height: 280px;
+  }
+  
+  .futuristic-container {
+    min-height: 280px;
+  }
+  
+  .step-content-container {
+    @apply p-3;
+  }
+  
+  .step-title {
+    @apply text-base mb-2;
+  }
+  
+  .step-description {
+    @apply text-xs leading-relaxed mb-3;
   }
 }
 </style>
