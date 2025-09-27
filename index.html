@@ -41,8 +41,18 @@
     <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
     <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
     <link rel="dns-prefetch" href="https://firebaseapp.com" />
+    <link rel="dns-prefetch" href="https://accounts.google.com" />
+    <link rel="dns-prefetch" href="https://apis.google.com" />
+    <link rel="dns-prefetch" href="https://www.gstatic.com" />
+    <link rel="dns-prefetch" href="https://securetoken.googleapis.com" />
+    <link rel="dns-prefetch" href="https://identitytoolkit.googleapis.com" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://accounts.google.com" />
+    <link rel="preconnect" href="https://apis.google.com" />
+    <link rel="preconnect" href="https://www.gstatic.com" />
+    <link rel="preconnect" href="https://securetoken.googleapis.com" />
+    <link rel="preconnect" href="https://identitytoolkit.googleapis.com" />
     
     <!-- Critical CSS Preload -->
     <link rel="preload" href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'" />
@@ -65,18 +75,18 @@
     <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin" />
     <meta http-equiv="Cross-Origin-Opener-Policy" content="same-origin-allow-popups" />
     
-    <!-- Content Security Policy -->
+    <!-- Content Security Policy - Permissive for Firebase Auth -->
     <meta http-equiv="Content-Security-Policy" content="
-      default-src 'self';
-      script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.gstatic.com https://apis.google.com https://www.google.com https://www.recaptcha.net https://recaptcha.net;
-      style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
-      font-src 'self' https://fonts.gstatic.com;
+      default-src 'self' 'unsafe-inline' 'unsafe-eval' data: blob: https:;
+      script-src 'self' 'unsafe-inline' 'unsafe-eval' https:;
+      style-src 'self' 'unsafe-inline' https:;
       img-src 'self' data: https: blob:;
-      connect-src 'self' https://*.firebaseapp.com https://*.googleapis.com https://*.google.com https://identitytoolkit.googleapis.com https://securetoken.googleapis.com wss: ws:;
-      frame-src https://www.google.com https://recaptcha.net https://*.firebaseapp.com;
+      font-src 'self' data: https:;
+      connect-src 'self' https: wss: ws:;
+      frame-src 'self' https:;
       object-src 'none';
       base-uri 'self';
-      form-action 'self';
+      form-action 'self' https:;
     " />
     
     <title>The Blacklist - Marketplace Académico</title>
