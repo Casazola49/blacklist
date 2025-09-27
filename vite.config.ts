@@ -37,18 +37,9 @@ export default defineConfig(({ command, mode }) => {
     rollupOptions: {
       output: {
         manualChunks: (id) => {
-          // Firebase chunks - split by functionality
-          if (id.includes('firebase/auth')) {
-            return 'firebase-auth'
-          }
-          if (id.includes('firebase/firestore')) {
-            return 'firebase-firestore'
-          }
-          if (id.includes('firebase/app') || id.includes('firebase/analytics')) {
-            return 'firebase-core'
-          }
+          // Firebase chunk
           if (id.includes('firebase')) {
-            return 'firebase-other'
+            return 'firebase'
           }
           // Vue ecosystem chunk
           if (id.includes('vue') || id.includes('pinia') || id.includes('@vue')) {
