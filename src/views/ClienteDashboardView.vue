@@ -1,5 +1,18 @@
 <template>
   <div class="min-h-screen bg-gradient-to-br from-bg-primary via-bg-secondary to-bg-primary">
+    <!-- Demo Mode Banner -->
+    <div v-if="isDemoMode" class="bg-yellow-600 text-white py-2 px-4 text-center">
+      <span class="font-semibold">🎭 MODO DEMO ACTIVO</span>
+      <span class="mx-2">|</span>
+      <span class="text-sm">Estás navegando sin autenticación</span>
+      <button 
+        @click="exitDemo" 
+        class="ml-4 px-3 py-1 bg-white/20 hover:bg-white/30 rounded text-sm transition-colors"
+      >
+        Salir del Demo
+      </button>
+    </div>
+    
     <!-- Header -->
     <header class="border-b border-brand-primary/20 bg-bg-secondary/50 backdrop-blur-sm">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -227,6 +240,7 @@ import { useRouter } from 'vue-router'
 import { useAuthStore } from '../stores/auth'
 import { useContractsStore } from '../stores/contracts'
 import { useRatingModal } from '../composables/useRatingModal'
+import { useDemoMode } from '../composables/useDemoMode'
 import type { Contrato } from '../types'
 
 // UI Components
@@ -243,12 +257,18 @@ const router = useRouter()
 const authStore = useAuthStore()
 const contractsStore = useContractsStore()
 const ratingModal = useRatingModal()
+const { isDemoMode, exitDemoMode } = useDemoMode()
 
 // Reactive state
 const activeTab = ref('active')
 const showCreateContract = ref(false)
 const selectedContract = ref<Contrato | null>(null)
 const showProposals = ref(false)
+
+// Demo mode handler
+const exitDemo = () => {
+  exitDemoMode()
+}
 
 // Subscriptions
 let contractsUnsubscribe: (() => void) | null = null
@@ -339,6 +359,12 @@ watch(() => contractsStore.contracts, (contracts) => {
 
 // Lifecycle
 onMounted(async () => {
+  // In demo mode, skip authentication check
+  if (isDemoMode.value) {
+    console.log('Demo mode active - skipping data load')
+    return
+  }
+  
   if (!userProfile.value) {
     router.push('/auth')
     return

@@ -1,5 +1,18 @@
 <template>
   <div class="especialista-dashboard min-h-screen bg-primary">
+    <!-- Demo Mode Banner -->
+    <div v-if="isDemoMode" class="bg-purple-600 text-white py-2 px-4 text-center">
+      <span class="font-semibold">🎭 MODO DEMO ACTIVO</span>
+      <span class="mx-2">|</span>
+      <span class="text-sm">Estás navegando sin autenticación</span>
+      <button 
+        @click="exitDemo" 
+        class="ml-4 px-3 py-1 bg-white/20 hover:bg-white/30 rounded text-sm transition-colors"
+      >
+        Salir del Demo
+      </button>
+    </div>
+    
     <div class="container mx-auto px-4 py-8">
       <!-- Header -->
       <div class="flex justify-between items-center mb-8">
@@ -165,6 +178,7 @@ import { ref, onMounted, onUnmounted, watch } from 'vue'
 import { useAuthStore } from '../stores/auth'
 import { useSpecialistStore } from '../stores/specialist'
 import { useRatingModal } from '../composables/useRatingModal'
+import { useDemoMode } from '../composables/useDemoMode'
 import type { Contrato } from '../types'
 import GlitchText from '../components/ui/GlitchText.vue'
 import NeonButton from '../components/ui/NeonButton.vue'
@@ -180,6 +194,7 @@ import RatingModal from '../components/dashboard/RatingModal.vue'
 const authStore = useAuthStore()
 const specialistStore = useSpecialistStore()
 const ratingModal = useRatingModal()
+const { isDemoMode, exitDemoMode } = useDemoMode()
 
 // Modal states
 const showProposalModal = ref(false)
@@ -187,10 +202,21 @@ const showDeliverWorkModal = ref(false)
 const showContractModal = ref(false)
 const selectedContract = ref<Contrato | null>(null)
 
+// Demo mode handler
+const exitDemo = () => {
+  exitDemoMode()
+}
+
 // Real-time subscription
 let unsubscribeFromContracts: (() => void) | null = null
 
 onMounted(async () => {
+  // In demo mode, skip data loading
+  if (isDemoMode.value) {
+    console.log('Demo mode active - skipping data load')
+    return
+  }
+  
   if (authStore.userProfile?.uid) {
     try {
       await specialistStore.loadSpecialistData(authStore.userProfile.uid)

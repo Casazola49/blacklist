@@ -110,11 +110,40 @@ En lugar de agregar cada URL de preview de Vercel, configura un dominio personal
   3. Limpia caché del navegador
   4. Prueba en ventana de incógnito
 
+## 🎭 Solución Alternativa: Modo Demo (SIN AUTENTICACIÓN)
+
+Si los problemas de autenticación persisten y necesitas hacer una presentación **YA**, usa el **Modo Demo**:
+
+### ¿Qué es el Modo Demo?
+
+- Acceso **instantáneo** a los dashboards sin autenticación
+- Perfecto para presentaciones y demos
+- No requiere configuración de Firebase
+- Funciona en cualquier dominio
+
+### Cómo Usar:
+
+1. Ve al landing page de tu aplicación
+2. Busca la sección **"MODO DEMO - Acceso sin Autenticación"**
+3. Haz clic en:
+   - **👤 Entrar como Cliente**: Dashboard de cliente con datos demo
+   - **🎓 Entrar como Especialista**: Dashboard de especialista con datos demo
+
+### Características:
+
+- ✅ Sin Google Auth
+- ✅ Datos de ejemplo realistas
+- ✅ Navegación completa
+- ✅ Perfecto para presentaciones
+
+Ver más detalles en: [MODO-DEMO.md](./MODO-DEMO.md)
+
 ## 📝 Notas Importantes
 
 - **MFA (Multi-Factor Authentication)**: Firebase te está avisando que debes habilitar MFA antes del 13 de mayo de 2025
 - **Dominios de Preview**: Cada vez que Vercel crea un nuevo preview, tendrás que agregar ese dominio a Firebase (a menos que uses un dominio personalizado)
 - **Tiempo de Propagación**: Los cambios en Firebase pueden tardar 1-2 minutos en aplicarse
+- **Modo Demo**: Si tienes problemas urgentes, usa el modo demo para presentaciones
 
 ## 🔗 Enlaces Útiles
 

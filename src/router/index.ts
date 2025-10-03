@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import type { RouteRecordRaw } from 'vue-router'
 import { useAuthStore } from '../stores/auth'
+import { useDemoMode } from '../composables/useDemoMode'
 
 const routes: RouteRecordRaw[] = [
   {
@@ -67,9 +68,25 @@ const router = createRouter({
   routes
 })
 
-// Simplified navigation for demo - no guards
+// Navigation guards with demo mode support
 router.beforeEach((to, _from, next) => {
   console.log('Navigating to:', to.path)
+  
+  const { isDemoMode, restoreDemoSession } = useDemoMode()
+  
+  // Restore demo session if exists
+  if (!isDemoMode.value) {
+    restoreDemoSession()
+  }
+  
+  // Allow all navigation in demo mode
+  if (isDemoMode.value) {
+    console.log('Demo mode active - allowing navigation')
+    next()
+    return
+  }
+  
+  // Normal navigation
   next()
 })
 

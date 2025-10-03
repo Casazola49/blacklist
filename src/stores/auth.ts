@@ -4,6 +4,7 @@ import type { User } from 'firebase/auth'
 import type { Usuario, Especialista } from '../types'
 import { AuthService } from '../services/auth'
 import { useAuthErrorHandler } from '../composables/useAuthErrorHandler'
+import { useDemoMode } from '../composables/useDemoMode'
 
 export const useAuthStore = defineStore('auth', () => {
   // State
@@ -12,15 +13,46 @@ export const useAuthStore = defineStore('auth', () => {
   const loading = ref(false)
   const error = ref<string | null>(null)
   
+  // Demo mode
+  const { isDemoMode, getDemoUser } = useDemoMode()
+  
   // Error handling
   const { handleAuthError, retryWithFallback, clearError: clearAuthError } = useAuthErrorHandler()
 
-  // Getters
-  const isAuthenticated = computed(() => !!user.value)
-  const userRole = computed(() => userProfile.value?.tipo)
-  const isCliente = computed(() => userProfile.value?.tipo === 'cliente')
-  const isEspecialista = computed(() => userProfile.value?.tipo === 'especialista')
-  const isAdmin = computed(() => userProfile.value?.tipo === 'admin')
+  // Getters - Support demo mode
+  const isAuthenticated = computed(() => {
+    if (isDemoMode.value) return true
+    return !!user.value
+  })
+  
+  const userRole = computed(() => {
+    if (isDemoMode.value) {
+      const demoUser = getDemoUser()
+      return demoUser?.tipo
+    }
+    return userProfile.value?.tipo
+  })
+  
+  const isCliente = computed(() => {
+    if (isDemoMode.value) {
+      const demoUser = getDemoUser()
+      return demoUser?.tipo === 'cliente'
+    }
+    return userProfile.value?.tipo === 'cliente'
+  })
+  
+  const isEspecialista = computed(() => {
+    if (isDemoMode.value) {
+      const demoUser = getDemoUser()
+      return demoUser?.tipo === 'especialista'
+    }
+    return userProfile.value?.tipo === 'especialista'
+  })
+  
+  const isAdmin = computed(() => {
+    if (isDemoMode.value) return false
+    return userProfile.value?.tipo === 'admin'
+  })
 
   // Actions
   const signInWithGoogle = async () => {

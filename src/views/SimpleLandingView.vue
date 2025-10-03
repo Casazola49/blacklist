@@ -32,9 +32,26 @@
           >
             ACCEDER AL PROTOCOLO
           </router-link>
-          <button class="inline-block border border-cyan-500 text-cyan-400 hover:bg-cyan-500/10 px-8 py-3 rounded-lg font-semibold transition-colors">
-            ACCESO LIBRE - AHORA TIEMPO
-          </button>
+        </div>
+        
+        <!-- Demo Mode Access -->
+        <div class="mt-8 p-6 border border-yellow-500/30 rounded-lg bg-yellow-500/5 max-w-2xl mx-auto">
+          <p class="text-yellow-400 font-semibold mb-4">🎭 MODO DEMO - Acceso sin Autenticación</p>
+          <p class="text-gray-300 text-sm mb-4">Para presentaciones: Explora el dashboard sin necesidad de registro</p>
+          <div class="space-x-4">
+            <button 
+              @click="enterAsClienteDemo"
+              class="inline-block bg-yellow-600 hover:bg-yellow-700 text-white px-6 py-2 rounded-lg font-semibold transition-colors"
+            >
+              👤 Entrar como Cliente
+            </button>
+            <button 
+              @click="enterAsEspecialistaDemo"
+              class="inline-block bg-purple-600 hover:bg-purple-700 text-white px-6 py-2 rounded-lg font-semibold transition-colors"
+            >
+              🎓 Entrar como Especialista
+            </button>
+          </div>
         </div>
       </div>
     </section>
@@ -79,7 +96,9 @@
 <script setup lang="ts">
 import SimpleGlitchTitle from '@/components/ui/SimpleGlitchTitle.vue'
 import ProtocoloOperacion from '@/components/landing/ProtocoloOperacion.vue'
+import { useDemoMode } from '@/composables/useDemoMode'
 
-// Simple landing page - no complex logic
+const { enterAsClienteDemo, enterAsEspecialistaDemo } = useDemoMode()
+
 console.log('Landing page loaded')
 </script>
