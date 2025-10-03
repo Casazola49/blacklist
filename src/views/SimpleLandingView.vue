@@ -39,32 +39,8 @@
       </div>
     </section>
 
-    <!-- Features -->
-    <section class="py-16 px-6 bg-gray-800/50">
-      <div class="max-w-6xl mx-auto">
-        <h3 class="text-3xl font-bold text-center mb-12 text-cyan-400">¿Cómo Funciona?</h3>
-        
-        <div class="grid md:grid-cols-3 gap-8">
-          <div class="text-center p-6 border border-cyan-500/30 rounded-lg">
-            <div class="text-4xl mb-4">🎯</div>
-            <h4 class="text-xl font-semibold mb-2 text-cyan-400">1. Publica tu Proyecto</h4>
-            <p class="text-gray-300">Describe tu proyecto académico y recibe propuestas de especialistas verificados.</p>
-          </div>
-          
-          <div class="text-center p-6 border border-cyan-500/30 rounded-lg">
-            <div class="text-4xl mb-4">🤝</div>
-            <h4 class="text-xl font-semibold mb-2 text-cyan-400">2. Conecta con Expertos</h4>
-            <p class="text-gray-300">Accede a una red exclusiva de académicos de élite con experiencia comprobada.</p>
-          </div>
-          
-          <div class="text-center p-6 border border-cyan-500/30 rounded-lg">
-            <div class="text-4xl mb-4">✅</div>
-            <h4 class="text-xl font-semibold mb-2 text-cyan-400">3. Resultados Garantizados</h4>
-            <p class="text-gray-300">Sistema de escrow y calificaciones que garantiza la calidad del trabajo.</p>
-          </div>
-        </div>
-      </div>
-    </section>
+    <!-- Protocolo de Operación -->
+    <ProtocoloOperacion />
 
     <!-- CTA -->
     <section class="py-16 px-6">
@@ -102,6 +78,7 @@
 
 <script setup lang="ts">
 import SimpleGlitchTitle from '@/components/ui/SimpleGlitchTitle.vue'
+import ProtocoloOperacion from '@/components/landing/ProtocoloOperacion.vue'
 
 // Simple landing page - no complex logic
 console.log('Landing page loaded')

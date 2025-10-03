@@ -33,6 +33,7 @@ export default defineConfig(({ command, mode }) => {
     cssCodeSplit: true,
     sourcemap: !isProduction,
     minify: isProduction ? 'terser' : false,
+    chunkSizeWarningLimit: 600,
     rollupOptions: {
       output: {
         manualChunks: (id) => {

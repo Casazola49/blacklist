@@ -266,14 +266,21 @@
 @media (max-width: 768px) {
   .glitch-title,
   .glitch-layer {
-    font-size: clamp(2.5rem, 15vw, 6rem);
+    font-size: clamp(2rem, 12vw, 4rem);
   }
 }
 
 @media (max-width: 480px) {
   .glitch-title,
   .glitch-layer {
-    font-size: clamp(2rem, 18vw, 4rem);
+    font-size: clamp(1.5rem, 10vw, 2.5rem);
+  }
+}
+
+@media (max-width: 360px) {
+  .glitch-title,
+  .glitch-layer {
+    font-size: clamp(1.2rem, 8vw, 2rem);
   }
 }
 </style>

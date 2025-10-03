@@ -7,13 +7,22 @@ import { getMessaging, isSupported } from 'firebase/messaging'
 
 // Firebase configuration - These should be set via environment variables
 const firebaseConfig = {
-  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
-  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
-  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
-  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
-  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
-  appId: import.meta.env.VITE_FIREBASE_APP_ID,
-  measurementId: import.meta.env.VITE_FIREBASE_MEASUREMENT_ID
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY || "AIzaSyAokSPNcEbfnS8NVLbHmuQeIrgq7pAuaOs",
+  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN || "the-blacklist-879f1.firebaseapp.com",
+  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID || "the-blacklist-879f1",
+  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET || "the-blacklist-879f1.firebasestorage.app",
+  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID || "404649419019",
+  appId: import.meta.env.VITE_FIREBASE_APP_ID || "1:404649419019:web:4bd719a1ba4b6a1c3d020e",
+  measurementId: import.meta.env.VITE_FIREBASE_MEASUREMENT_ID || "G-E8Y44WN635"
+}
+
+// Debug: Log configuration in development
+if (import.meta.env.DEV) {
+  console.log('Firebase Config:', {
+    apiKey: firebaseConfig.apiKey ? '✅ Set' : '❌ Missing',
+    authDomain: firebaseConfig.authDomain ? '✅ Set' : '❌ Missing',
+    projectId: firebaseConfig.projectId ? '✅ Set' : '❌ Missing',
+  })
 }
 
 // Initialize Firebase
