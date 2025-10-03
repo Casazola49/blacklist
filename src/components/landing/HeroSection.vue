@@ -66,6 +66,33 @@
         <p class="text-text-muted text-sm mt-4 font-mono">
           [ ACCESO LIBRE - AHORRA TIEMPO ]
         </p>
+        
+        <!-- Demo Mode Access -->
+        <div class="demo-mode-section mt-8 p-6 border border-yellow-500/30 rounded-lg bg-yellow-500/5 backdrop-blur-sm max-w-2xl mx-auto">
+          <p class="text-yellow-400 font-semibold mb-3 font-mono text-lg">🎭 MODO DEMO</p>
+          <p class="text-gray-300 text-sm mb-4 font-mono">
+            [ ACCESO INSTANTÁNEO SIN AUTENTICACIÓN ]
+          </p>
+          <div class="flex flex-col sm:flex-row gap-3 justify-center">
+            <button 
+              @click="enterAsClienteDemo"
+              class="demo-button bg-yellow-600 hover:bg-yellow-700 text-white px-6 py-3 rounded-lg font-semibold transition-all duration-300 font-mono flex items-center justify-center gap-2"
+            >
+              <span>👤</span>
+              <span>CLIENTE DEMO</span>
+            </button>
+            <button 
+              @click="enterAsEspecialistaDemo"
+              class="demo-button bg-purple-600 hover:bg-purple-700 text-white px-6 py-3 rounded-lg font-semibold transition-all duration-300 font-mono flex items-center justify-center gap-2"
+            >
+              <span>🎓</span>
+              <span>ESPECIALISTA DEMO</span>
+            </button>
+          </div>
+          <p class="text-gray-400 text-xs mt-3 font-mono">
+            [ PERFECTO PARA PRESENTACIONES Y DEMOS ]
+          </p>
+        </div>
       </div>
     </div>
 
@@ -85,6 +112,10 @@ import { ref, onMounted, onUnmounted } from 'vue'
 import GlitchText from '../ui/SimpleGlitchText.vue'
 import GlitchTitle from '../ui/SimpleGlitchTitle.vue'
 import NeonButton from '../ui/NeonButton.vue'
+import { useDemoMode } from '@/composables/useDemoMode'
+
+// Demo mode
+const { enterAsClienteDemo, enterAsEspecialistaDemo } = useDemoMode()
 
 // Matrix animation data
 const matrixColumns = ref(50)
@@ -503,5 +534,48 @@ onUnmounted(() => {
   100% {
     opacity: 1;
   }
+}
+
+/* Demo Mode Section Styles */
+.demo-mode-section {
+  animation: demo-glow 3s ease-in-out infinite alternate;
+}
+
+@keyframes demo-glow {
+  0% {
+    box-shadow: 0 0 10px rgba(234, 179, 8, 0.2);
+  }
+  100% {
+    box-shadow: 0 0 20px rgba(234, 179, 8, 0.4), 0 0 30px rgba(234, 179, 8, 0.2);
+  }
+}
+
+.demo-button {
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.demo-button::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.3);
+  transform: translate(-50%, -50%);
+  transition: width 0.6s, height 0.6s;
+}
+
+.demo-button:hover::before {
+  width: 300px;
+  height: 300px;
+}
+
+.demo-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
 }
 </style>
